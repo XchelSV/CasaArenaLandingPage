@@ -1,0 +1,49 @@
+/* The hero image */
+.hero-image {
+    /* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/assets/banner1.png");
+
+    /* Set a specific height */
+    height: 50%;
+
+    /* Position and center the image to scale nicely on all screens */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.banner-title {
+    color: white;
+    font-weight :100;
+    letter-spacing: .2rem;
+}
+
+p {
+    color: white;
+    font-weight :400;
+    letter-spacing: .2rem;
+}
+
+.banner-title {
+    color: white;
+    font-weight :100;
+    letter-spacing: .2rem;
+}
+
+.banner-button {
+    font-weight :400;
+    letter-spacing: .2rem;
+    width: 100%;
+    color: #28231D;
+}
+
+.btn-outline-secondary, .btn-outline-secondary:active, .btn-outline-secondary:visited {
+    border-color: #28231D;
+    border-width: 2px;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #28231D;
+    color: #fff;
+}
