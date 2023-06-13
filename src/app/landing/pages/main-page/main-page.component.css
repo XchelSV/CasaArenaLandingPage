@@ -6,11 +6,11 @@
     /* Set a specific height */
     height: 50%;
 
-    /* Position and center the image to scale nicely on all screens */
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    position: relative;
 }
 
 .banner-title {
@@ -23,6 +23,7 @@ p {
     color: white;
     font-weight :400;
     letter-spacing: .2rem;
+    font-size: large;
 }
 
 .banner-title {
@@ -46,4 +47,9 @@ p {
 .btn-outline-secondary:hover {
     background-color: #28231D;
     color: #fff;
+}
+
+.p-home-us {
+    color: black;
+    font-weight: 100;
 }
