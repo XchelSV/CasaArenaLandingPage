@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
+import { NGXLogger } from 'ngx-logger';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-main-page',
@@ -7,9 +10,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private sanitizer:DomSanitizer){}
 
   ngOnInit(): void {
   }
 
+  mapsApiKey = environment.mapsApiKey;
+  mapsUrl = this.sanitizer.bypassSecurityTrustResourceUrl("https://www.google.com/maps/embed/v1/place?key="+this.mapsApiKey+"&q=Taller+de+Cerámica+Casa+Arena");
+  
 }
