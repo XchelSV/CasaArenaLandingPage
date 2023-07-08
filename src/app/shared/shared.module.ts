@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Error404PageComponent } from './pages/error404-page/error404-page.component';
 import { CasaArenaHeaderComponent } from './components/casa-arena-header/casa-arena-header.component';
 import { CasaArenaFooterComponent } from './components/casa-arena-footer/casa-arena-footer.component';
+import { LandingRoutingModule } from '../landing/landing-routing.module';
 
 
 
@@ -13,7 +14,8 @@ import { CasaArenaFooterComponent } from './components/casa-arena-footer/casa-ar
     CasaArenaFooterComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    LandingRoutingModule,
   ],
   exports: [
     CasaArenaHeaderComponent,

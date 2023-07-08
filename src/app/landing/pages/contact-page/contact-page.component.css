@@ -1,0 +1,46 @@
+.title {
+    font-weight :100;
+    letter-spacing: .2rem;
+}
+
+.sub-title {
+    font-size: 20px;
+    font-weight :100;
+    letter-spacing: .2rem;
+}
+
+.text {
+    font-size: 18px;
+    font-weight :400;
+}
+
+.left-data {
+    background-color: #EEEEEE;    
+}
+
+.vertical-align {
+    margin: 0;
+    position: relative;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.btn-outline-secondary, .btn-outline-secondary:active, .btn-outline-secondary:visited {
+    border-color: #28231D;
+    background-color: #28231D;
+    border-width: 2px;
+}
+
+.btn-outline-secondary:hover{
+    background-color: #36322d;
+    fill: #fff;
+}
+
+textarea:focus,
+input[type="text"]:focus,
+.uneditable-input:focus {   
+  border-color: #28231D;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #EEEEEE;
+  outline: 0 none;
+}
