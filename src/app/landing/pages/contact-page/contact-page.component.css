@@ -15,7 +15,7 @@
 }
 
 .left-data {
-    background-color: #EEEEEE;    
+    background-color: #fffefe;    
 }
 
 .vertical-align {
@@ -43,4 +43,10 @@ input[type="text"]:focus,
   border-color: #28231D;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #EEEEEE;
   outline: 0 none;
+}
+
+.gradient-image {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.01), rgba(0, 0, 0, 0.01)), url("/assets/t-banner.png");
+    background-position: center;
+    background-size: cover;
 }

@@ -17,7 +17,8 @@ const targetPath = isProduction
 const environmentFileContent = `
 export const environment = {
    production: ${isProduction},
-   mapsApiKey: "${process.env.MAPS_API_KEY}"
+   mapsApiKey: "${process.env.MAPS_API_KEY}",
+   WHATSAPP_SOURCE_MOBILE: "${process.env.WHATSAPP_SOURCE_MOBILE}"
 };
 `;
 
