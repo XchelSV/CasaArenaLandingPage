@@ -46,7 +46,6 @@ input[type="text"]:focus,
 }
 
 .gradient-image {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.01), rgba(0, 0, 0, 0.01)), url("/assets/t-banner.png");
     background-position: center;
     background-size: cover;
 }

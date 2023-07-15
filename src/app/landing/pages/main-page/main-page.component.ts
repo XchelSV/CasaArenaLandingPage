@@ -15,6 +15,7 @@ export class MainPageComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  cdnUrl = environment.CDN_URL;
   mapsApiKey = environment.mapsApiKey;
   mapsUrl = this.sanitizer.bypassSecurityTrustResourceUrl("https://www.google.com/maps/embed/v1/place?key="+this.mapsApiKey+"&q=Taller+de+Cerámica+Casa+Arena");
   

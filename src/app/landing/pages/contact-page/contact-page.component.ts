@@ -15,6 +15,7 @@ export class ContactPageComponent implements OnInit {
 
   name = '';
   message = '';
+  cdnUrl = environment.CDN_URL;
 
   openWhatsApp() {
     const encodedMessage = encodeURI(this.message);
