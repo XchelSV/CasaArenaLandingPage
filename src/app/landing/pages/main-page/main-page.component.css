@@ -1,13 +1,20 @@
 /* The hero image */
 .hero-image {
     /* Set a specific height */
-    height: 50%;
+    height: 50%; 
 
     /* Create the parallax scrolling effect */
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+/* Turn off parallax scrolling for all tablets and phones. Increase/decrease the pixels if needed */
+@media only screen and (min-width: 320px) and (max-width: 767.98px) {
+    .hero-image {
+        background-attachment: scroll;
+    }
 }
 
 .banner-title {
@@ -49,4 +56,14 @@ p {
 .p-home-us {
     color: black;
     font-weight: 100;
+}
+
+.margin-paragraph {
+    margin: 50px;
+}
+
+@media only screen and (min-width: 120px) and (max-width: 767.98px) {
+    .margin-paragraph {
+        margin: 20px;
+    }
 }
