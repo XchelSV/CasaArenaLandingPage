@@ -1,0 +1,14 @@
+.margin-paragraph {
+    padding: 60px;
+}
+
+p {
+    letter-spacing: .2rem;
+    font-size: large;
+    color: black;
+    font-weight: 100;
+}
+
+.grey-row {
+    background-color: rgb(249, 249, 249);
+}

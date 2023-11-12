@@ -7,13 +7,15 @@ import { MainPageComponent } from './pages/main-page/main-page.component';
 import { ContactPageComponent } from './pages/contact-page/contact-page.component';
 import { SharedModule } from '../shared/shared.module';
 import { FormsModule } from '@angular/forms';
+import { TalleresPageComponent } from './pages/talleres-page/talleres-page.component';
 
 
 @NgModule({
   declarations: [
     LayoutPageComponent,
     MainPageComponent,
-    ContactPageComponent
+    ContactPageComponent,
+    TalleresPageComponent
   ],
   imports: [
     CommonModule,
