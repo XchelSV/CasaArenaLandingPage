@@ -14,5 +14,15 @@ export class TalleresPageComponent implements OnInit {
   }
 
   cdnUrl = environment.CDN_URL;
+  
+  openWhatsApp(index: string) {
+    const messages: any = {
+      "torno": "¡Hola!\nQuisiera solicitar mas información respecto a las clases de cerámica en torno.",
+      "manual": "¡Hola!\nQuisiera solicitar mas información respecto a las clases de cerámica en construcción manual."
+    };
+    const encodedMessage = encodeURI(messages[index]);
+    const url = `https://wa.me/${environment.WHATSAPP_SOURCE_MOBILE}?text=${encodedMessage}`;
+    window.open(url, '_blank')?.focus();
+  }
 
 }

@@ -12,3 +12,14 @@ p {
 .grey-row {
     background-color: rgb(249, 249, 249);
 }
+
+.btn-outline-secondary, .btn-outline-secondary:active, .btn-outline-secondary:visited {
+    border-color: #28231D;
+    background-color: #28231D;
+    border-width: 2px;
+}
+
+.btn-outline-secondary:hover{
+    background-color: #36322d;
+    fill: #fff;
+}
