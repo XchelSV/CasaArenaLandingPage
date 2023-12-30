@@ -14,78 +14,13 @@
 
 <div class="container-fluid text-center">
     <div class="row mb-3">
-        <div class="col-md-3 col-6 mt-1">
-            <div class="card">
-                <img src="{{cdnUrl}}/images/Esmaltes/Background-less/Esmalte-9-removebg-preview.png?d=500x550" style="padding:10px;" class="card-img-top" alt="esmalte-img">
-                <div class="card-body">
-                  <h5 class="card-title">ENGOBE COLOR X</h5>
-                  <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit id aliquid distinctio labore</p>
-                </div>
-              </div>
-        </div>
-        <div class="col-md-3 col-6 mt-1">
-            <div class="card">
-                <img src="{{cdnUrl}}/images/Esmaltes/Background-less/Esmalte-10-removebg-preview.png?d=500x550" style="padding:10px;" class="card-img-top" alt="esmalte-img">
-                <div class="card-body">
-                  <h5 class="card-title">ENGOBE COLOR X</h5>
-                  <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit id aliquid distinctio labore</p>
-                </div>
-              </div>
-        </div>
-        <div class="col-md-3 col-6 mt-1">
-            <div class="card">
-                <img src="{{cdnUrl}}/images/Esmaltes/Background-less/Esmalte-11-removebg-preview.png?d=500x550" style="padding:10px;" class="card-img-top" alt="esmalte-img">
-                <div class="card-body">
-                  <h5 class="card-title">ENGOBE COLOR X</h5>
-                  <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit id aliquid distinctio labore</p>
-                </div>
-              </div>
-        </div>
-        <div class="col-md-3 col-6 mt-1">
-            <div class="card">
-                <img src="{{cdnUrl}}/images/Esmaltes/Background-less/Esmalte-12-removebg-preview.png?d=500x550" style="padding:10px;" class="card-img-top" alt="esmalte-img">
-                <div class="card-body">
-                  <h5 class="card-title">ENGOBE COLOR X</h5>
-                  <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit id aliquid distinctio labore</p>
-                </div>
-              </div>
-        </div>
-
-        <div class="col-md-3 col-6 mt-1">
-            <div class="card">
-                <img src="{{cdnUrl}}/images/Esmaltes/Background-less/Esmalte-13-removebg-preview.png?d=500x550" style="padding:10px;" class="card-img-top" alt="esmalte-img">
-                <div class="card-body">
-                  <h5 class="card-title">ENGOBE COLOR X</h5>
-                  <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit id aliquid distinctio labore</p>
-                </div>
-              </div>
-        </div>
-        <div class="col-md-3 col-6 mt-1">
-            <div class="card">
-                <img src="{{cdnUrl}}/images/Esmaltes/Background-less/Esmalte-14-removebg-preview.png?d=500x550" style="padding:10px;" class="card-img-top" alt="esmalte-img">
-                <div class="card-body">
-                  <h5 class="card-title">ENGOBE COLOR X</h5>
-                  <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit id aliquid distinctio labore</p>
-                </div>
-              </div>
-        </div>
-        <div class="col-md-3 col-6 mt-1">
-            <div class="card">
-                <img src="{{cdnUrl}}/images/Esmaltes/Background-less/Esmalte-15-removebg-preview.png?d=500x550" style="padding:10px;" class="card-img-top" alt="esmalte-img">
-                <div class="card-body">
-                  <h5 class="card-title">ENGOBE COLOR X</h5>
-                  <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit id aliquid distinctio labore</p>
-                </div>
-              </div>
-        </div>
-        <div class="col-md-3 col-6 mt-1">
-            <div class="card">
-                <img src="{{cdnUrl}}/images/Esmaltes/Background-less/Esmalte-16-removebg-preview.png?d=500x550" style="padding:10px;" class="card-img-top" alt="esmalte-img">
-                <div class="card-body">
-                  <h5 class="card-title">ENGOBE COLOR X</h5>
-                  <p class="card-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit id aliquid distinctio labore</p>
-                </div>
-              </div>
+        <div class="col-md-3 col-6 mt-1" *ngFor="let product of products">
+            <product-card
+                [image-path]=product.image
+                [title]=product.title
+                [description]=product.description
+                [price]=product.price
+            ></product-card>
         </div>
     </div>
 </div>

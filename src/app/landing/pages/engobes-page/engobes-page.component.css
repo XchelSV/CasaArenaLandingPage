@@ -15,14 +15,6 @@
     padding: 36px 50px;
 }
 
-.card-text {
-    font-weight :100;
-}
-
-.card {
-    border: none;
-}
-
 @media only screen and (min-width: 120px) and (max-width: 767.98px) {
     .hero-image {
         height: 120px; 

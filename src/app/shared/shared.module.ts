@@ -4,6 +4,7 @@ import { Error404PageComponent } from './pages/error404-page/error404-page.compo
 import { CasaArenaHeaderComponent } from './components/casa-arena-header/casa-arena-header.component';
 import { CasaArenaFooterComponent } from './components/casa-arena-footer/casa-arena-footer.component';
 import { LandingRoutingModule } from '../landing/landing-routing.module';
+import { ProductCardComponent } from './components/product-card/product-card.component';
 
 
 
@@ -11,7 +12,8 @@ import { LandingRoutingModule } from '../landing/landing-routing.module';
   declarations: [
     Error404PageComponent,
     CasaArenaHeaderComponent,
-    CasaArenaFooterComponent
+    CasaArenaFooterComponent,
+    ProductCardComponent
   ],
   imports: [
     CommonModule,
@@ -19,7 +21,8 @@ import { LandingRoutingModule } from '../landing/landing-routing.module';
   ],
   exports: [
     CasaArenaHeaderComponent,
-    CasaArenaFooterComponent
+    CasaArenaFooterComponent,
+    ProductCardComponent
   ]
 })
 export class SharedModule { }
