@@ -9,6 +9,7 @@ import { SharedModule } from '../shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { TalleresPageComponent } from './pages/talleres-page/talleres-page.component';
 import { EsmaltesPageComponent } from './pages/esmaltes-page/esmaltes-page.component';
+import { EngobesPageComponent } from './pages/engobes-page/engobes-page.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { EsmaltesPageComponent } from './pages/esmaltes-page/esmaltes-page.compo
     MainPageComponent,
     ContactPageComponent,
     TalleresPageComponent,
-    EsmaltesPageComponent
+    EsmaltesPageComponent,
+    EngobesPageComponent
   ],
   imports: [
     CommonModule,
