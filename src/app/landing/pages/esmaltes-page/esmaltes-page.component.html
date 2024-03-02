@@ -17,6 +17,7 @@
       <div class="col-md-3 col-6 mt-1" *ngFor="let product of products">
           <product-card
               [image-path]=product.image
+              [image-preview]=product.preview
               [title]=product.title
               [description]=product.description
               [price]=product.price

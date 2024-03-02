@@ -14,10 +14,15 @@ export class ProductCardComponent implements OnInit {
   }
 
   @Input('image-path') imagePath: string = '';
+  @Input('image-preview') imagePreview: string = '';
   @Input('title') title: string = '';
   @Input('description') description: string = '';
   @Input('price') price: number = 0;
 
   cdnUrl = environment.CDN_URL;
+
+  onImageLoad(): void {
+    this.imagePreview = this.imagePath;
+  }
 
 }
