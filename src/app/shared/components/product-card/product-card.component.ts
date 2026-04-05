@@ -4,7 +4,7 @@ import { environment } from 'src/environments/environment';
 @Component({
     selector: 'product-card',
     templateUrl: './product-card.component.html',
-    styles: ['.card-text { font-weight :100; }', '.card { border: none; }', '.card-footer { font-weight :100; }'],
+    styleUrls: ['./product-card.component.css'],
     standalone: false
 })
 export class ProductCardComponent implements OnInit {
@@ -21,9 +21,10 @@ export class ProductCardComponent implements OnInit {
   @Input('price') price: number = 0;
 
   cdnUrl = environment.CDN_URL;
+  imageLoaded = false;
 
   onImageLoad(): void {
-    this.imagePreview = this.imagePath;
+    this.imageLoaded = true;
   }
 
 }

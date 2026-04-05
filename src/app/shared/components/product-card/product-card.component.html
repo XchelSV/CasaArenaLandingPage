@@ -1,5 +1,17 @@
 <div class="card">
-    <img src="{{cdnUrl}}{{imagePreview}}" (load)="onImageLoad()" style="padding:10px;" class="card-img-top" alt="esmalte-img">
+    <div class="image-shell">
+      <div class="image-frame" [class.loaded]="imageLoaded">
+        <img
+          [src]="cdnUrl + imagePath"
+          [class.loaded]="imageLoaded"
+          (load)="onImageLoad()"
+          class="product-image"
+          alt="product-image"
+          loading="lazy"
+          decoding="async"
+        >
+      </div>
+    </div>
     <div class="card-body">
       <h5 class="card-title">{{title}}</h5>
       <p class="card-text">{{description}}</p>
