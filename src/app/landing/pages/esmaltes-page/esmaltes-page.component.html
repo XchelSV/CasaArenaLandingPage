@@ -1,27 +1,29 @@
-<div class="container-fluid text-center hero-image" [ngStyle]="{backgroundImage:'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('+cdnUrl+'/images/esmalte-header-1.png)'}">    
-    
+<div class="container-fluid text-center hero-image" [ngStyle]="{backgroundImage:'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('+cdnUrl+'/images/esmalte-header-1.png)'}">
+
 </div>
 
 <div class="container-fluid text-center">
-    <div class="row justify-content-center">
-        <div class="col banner-title">
-            <p>Catálogo</p>
-            <h2>ESMALTES</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. At distinctio minus accusamus dolores cum sint recusandae odit excepturi laudantium nihil et quaerat alias vel, incidunt dolore magni unde officiis facere.</p>
-        </div>
+  <div class="row justify-content-center">
+    <div class="col banner-title">
+      <p>Catálogo</p>
+      <h2>ESMALTES</h2>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. At distinctio minus accusamus dolores cum sint recusandae odit excepturi laudantium nihil et quaerat alias vel, incidunt dolore magni unde officiis facere.</p>
     </div>
+  </div>
 </div>
 
 <div class="container-fluid text-center">
   <div class="row mb-3">
-      <div class="col-md-3 col-6 mt-1" *ngFor="let product of products">
-          <product-card
-              [image-path]=product.image
-              [image-preview]=product.preview
-              [title]=product.title
-              [description]=product.description
-              [price]=product.price
-          ></product-card>
+    @for (product of products; track product) {
+      <div class="col-md-3 col-6 mt-1">
+        <product-card
+          [image-path]=product.image
+          [image-preview]=product.preview
+          [title]=product.title
+          [description]=product.description
+          [price]=product.price
+        ></product-card>
       </div>
+    }
   </div>
 </div>

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-casa-arena-footer',
-  templateUrl: './casa-arena-footer.component.html',
-  styleUrls: ['./casa-arena-footer.component.css']
+    selector: 'app-casa-arena-footer',
+    templateUrl: './casa-arena-footer.component.html',
+    styleUrls: ['./casa-arena-footer.component.css'],
+    standalone: false
 })
 export class CasaArenaFooterComponent implements OnInit {
 

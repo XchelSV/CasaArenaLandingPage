@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-engobes-page',
-  templateUrl: './engobes-page.component.html',
-  styleUrls: ['./engobes-page.component.css']
+    selector: 'app-engobes-page',
+    templateUrl: './engobes-page.component.html',
+    styleUrls: ['./engobes-page.component.css'],
+    standalone: false
 })
 export class EngobesPageComponent implements OnInit {
 

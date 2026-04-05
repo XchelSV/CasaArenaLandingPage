@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-esmaltes-page',
-  templateUrl: './esmaltes-page.component.html',
-  styleUrls: ['./esmaltes-page.component.css']
+    selector: 'app-esmaltes-page',
+    templateUrl: './esmaltes-page.component.html',
+    styleUrls: ['./esmaltes-page.component.css'],
+    standalone: false
 })
 export class EsmaltesPageComponent implements OnInit {
 

@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-contact-page',
-  templateUrl: './contact-page.component.html',
-  styleUrls: ['./contact-page.component.css']
+    selector: 'app-contact-page',
+    templateUrl: './contact-page.component.html',
+    styleUrls: ['./contact-page.component.css'],
+    standalone: false
 })
 export class ContactPageComponent implements OnInit {
 

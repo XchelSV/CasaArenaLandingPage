@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { NGXLogger } from 'ngx-logger';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-main-page',
-  templateUrl: './main-page.component.html',
-  styleUrls: ['./main-page.component.css']
+    selector: 'app-main-page',
+    templateUrl: './main-page.component.html',
+    styleUrls: ['./main-page.component.css'],
+    standalone: false
 })
 export class MainPageComponent implements OnInit {
 

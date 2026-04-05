@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-talleres-page',
-  templateUrl: './talleres-page.component.html',
-  styleUrls: ['./talleres-page.component.css']
+    selector: 'app-talleres-page',
+    templateUrl: './talleres-page.component.html',
+    styleUrls: ['./talleres-page.component.css'],
+    standalone: false
 })
 export class TalleresPageComponent implements OnInit {
 
