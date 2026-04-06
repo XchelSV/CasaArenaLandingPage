@@ -86,11 +86,23 @@ input[type="text"]:focus,
 }
 
 @media (max-width: 767.98px) {
+    :host {
+        display: block;
+    }
+
+    .contact-page,
+    .contact-page__container,
+    .contact-page__row {
+        display: block;
+        min-height: auto;
+    }
+
     .contact-page__info {
         min-height: 320px;
     }
 
     .contact-page__form {
-        padding: 48px 24px 64px;
+        min-height: auto;
+        padding: 48px 24px 88px;
     }
 }

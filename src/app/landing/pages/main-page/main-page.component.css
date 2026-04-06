@@ -172,10 +172,15 @@ p {
     }
 
     .image-frame--portrait {
-        aspect-ratio: 4 / 5;
+        aspect-ratio: auto;
     }
 
     .hero-logo-frame {
         min-height: 90px;
+    }
+
+    .image-frame .content-image {
+        height: auto;
+        object-fit: contain;
     }
 }
