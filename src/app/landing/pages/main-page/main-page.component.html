@@ -1,7 +1,25 @@
-<div class="container-fluid text-center hero-image" [ngStyle]="{backgroundImage:'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('+cdnUrl+'/images/banner1.png?d=600x620)'}">
+<div
+    class="container-fluid text-center hero-image"
+    [class.hero-image--loaded]="heroImageLoaded">
+    <div
+        class="hero-image__media"
+        [class.hero-image__media--loaded]="heroImageLoaded"
+        [ngStyle]="heroImageLoaded ? {backgroundImage: 'url(' + heroImageUrl + ')'} : null"
+        aria-hidden="true"></div>
+    <div class="hero-image__overlay" aria-hidden="true"></div>
+    <div class="hero-image__content">
     <div class="row justify-content-center">
         <div class="col-3 mt-4">
-            <img src="{{cdnUrl}}/images/white-logo.png" alt="Bootstrap" class="img-fluid">
+            <div class="hero-logo-frame">
+                <img
+                    [src]="logoImageUrl"
+                    alt="Casa Arena"
+                    class="img-fluid hero-logo-image"
+                    [class.hero-logo-image--loaded]="logoLoaded"
+                    fetchpriority="high"
+                    decoding="async"
+                    (load)="markImageAsLoaded('logo')">
+            </div>
         </div>
     </div>
     <div class="row justify-content-center">
@@ -18,6 +36,7 @@
         <div class="col mb-4">
             <p style="font-weight: 100;">Ubicados en la Ciudad de Puebla</p>
         </div>
+    </div>
     </div>
 </div>
 
@@ -37,7 +56,16 @@
 <div class="container-fluid" style="margin-bottom: 80px;">
     <div class="row margin-paragraph">
         <div class="col-md-6 col-xs-12 px-md-5 mb-5 col-sm-6">
-            <img src="{{cdnUrl}}/images/home-us-1.png?d=700x720" alt="Bootstrap" class="img-fluid">
+            <div class="image-frame image-frame--portrait" [class.image-frame--loaded]="firstSectionImageLoaded">
+                <img
+                    [src]="firstSectionImageUrl"
+                    alt="Piezas de cerámica Casa Arena"
+                    class="img-fluid content-image"
+                    [class.content-image--loaded]="firstSectionImageLoaded"
+                    decoding="async"
+                    loading="lazy"
+                    (load)="markImageAsLoaded('first')">
+            </div>
         </div>
         <div class="col-md-6 col-xs-12 px-md-5 col-sm-6">
             <h2>Lorem ipsum dolor sit. Voluptatibus non, deleniti minima itaque beatae ad? Esse?</h2>
@@ -52,7 +80,16 @@
             <p class="p-home-us">Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi natus expedita, incidunt praesentium quod qui sit illum minima voluptatem, suscipit dolorum magni aliquid maxime iure iusto saepe impedit voluptatibus debitis!</p>
         </div>
         <div class="col-md-6 col-xs-12 px-md-5 col-sm-6">
-            <img src="{{cdnUrl}}/images/home-us-2.png?d=700x720" alt="Bootstrap" class="img-fluid">
+            <div class="image-frame image-frame--portrait" [class.image-frame--loaded]="secondSectionImageLoaded">
+                <img
+                    [src]="secondSectionImageUrl"
+                    alt="Taller de cerámica Casa Arena"
+                    class="img-fluid content-image"
+                    [class.content-image--loaded]="secondSectionImageLoaded"
+                    decoding="async"
+                    loading="lazy"
+                    (load)="markImageAsLoaded('second')">
+            </div>
         </div>
     </div>
 </div>
