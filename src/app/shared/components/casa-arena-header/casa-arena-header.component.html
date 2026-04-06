@@ -21,6 +21,15 @@
                 <li class="nav-item">
                     <a class="nav-link mx-2" routerLinkActive="active" routerLink="/landing/contact">CONTÁCTANOS</a>
                 </li>
+                <li class="nav-item casa-arena-cart-item">
+                    <a class="nav-link mx-2 casa-arena-cart-link" routerLinkActive="active" routerLink="/landing/carrito">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="casa-arena-cart-icon" viewBox="0 0 576 512" aria-hidden="true">
+                            <path d="M528.1 301.3l47.3-208C578.1 80.5 568.3 64 552 64H128l-9.4-44.1C115.7 8.7 105.8 0 94.5 0H24C10.7 0 0 10.7 0 24s10.7 24 24 24h51.2l70.4 330.4c-17 13.2-27.6 33.8-27.6 56.8C118 475.4 150.6 508 190.8 508s72.8-32.6 72.8-72.8c0-4.3-.4-8.5-1.1-12.6h125.1c-.7 4.1-1.1 8.3-1.1 12.6 0 40.2 32.6 72.8 72.8 72.8s72.8-32.6 72.8-72.8c0-28.7-16.6-53.5-40.8-65.4l7.2-31.8c2.6-11.5-6.2-22.4-18-22.4H188.5l-6.8-32h346.4z"/>
+                        </svg>
+                        <span>CARRITO</span>
+                        <span class="casa-arena-cart-count">{{ cartCount$ | async }}</span>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>

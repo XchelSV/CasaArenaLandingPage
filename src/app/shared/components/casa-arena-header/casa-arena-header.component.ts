@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { CartService } from '../../services/cart.service';
 
 @Component({
     selector: 'app-casa-arena-header',
@@ -9,7 +11,9 @@ import { Router } from '@angular/router';
 })
 export class CasaArenaHeaderComponent implements OnInit {
 
-  constructor(private router: Router){}
+  readonly cartCount$: Observable<number> = this.cartService.cartCount$;
+
+  constructor(private router: Router, private cartService: CartService){}
 
   ngOnInit(): void {
   }

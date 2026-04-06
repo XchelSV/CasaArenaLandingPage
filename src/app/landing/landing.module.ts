@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { TalleresPageComponent } from './pages/talleres-page/talleres-page.component';
 import { EsmaltesPageComponent } from './pages/esmaltes-page/esmaltes-page.component';
 import { EngobesPageComponent } from './pages/engobes-page/engobes-page.component';
+import { CartPageComponent } from './pages/cart-page/cart-page.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { EngobesPageComponent } from './pages/engobes-page/engobes-page.componen
     ContactPageComponent,
     TalleresPageComponent,
     EsmaltesPageComponent,
-    EngobesPageComponent
+    EngobesPageComponent,
+    CartPageComponent
   ],
   imports: [
     CommonModule,

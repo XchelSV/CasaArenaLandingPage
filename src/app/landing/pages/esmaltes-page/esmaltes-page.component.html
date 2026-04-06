@@ -17,6 +17,8 @@
     @for (product of products; track product) {
       <div class="col-md-3 col-6 mt-1">
         <product-card
+          [product-id]=product.id
+          [category]=product.category
           [image-path]=product.image
           [image-preview]=product.preview
           [title]=product.title

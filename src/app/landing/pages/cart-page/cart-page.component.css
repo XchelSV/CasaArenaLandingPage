@@ -1,0 +1,141 @@
+:host {
+    display: block;
+}
+
+.cart-page {
+    padding: 56px 24px 72px;
+}
+
+.cart-page__container {
+    max-width: 1200px;
+}
+
+.cart-page__header {
+    margin-bottom: 2rem;
+}
+
+.cart-page__eyebrow {
+    margin-bottom: 0.5rem;
+    letter-spacing: .2rem;
+    font-weight: 100;
+    text-transform: uppercase;
+}
+
+.cart-item {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 1.5rem;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(40, 35, 29, 0.12);
+    background-color: #fff;
+}
+
+.cart-item__image-shell {
+    background-color: #f8f4ef;
+    padding: 0.75rem;
+}
+
+.cart-item__image {
+    width: 100%;
+    aspect-ratio: 10 / 11;
+    object-fit: contain;
+    display: block;
+}
+
+.cart-item__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.cart-item__category {
+    margin-bottom: 0.3rem;
+    font-size: 0.85rem;
+    letter-spacing: .2rem;
+    text-transform: uppercase;
+    color: rgba(40, 35, 29, 0.7);
+}
+
+.cart-item__title {
+    margin-bottom: 0.5rem;
+}
+
+.cart-item__description {
+    margin: 0;
+    color: rgba(40, 35, 29, 0.8);
+}
+
+.cart-item__meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.cart-item__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.cart-item__quantity {
+    min-width: 1.25rem;
+    text-align: center;
+}
+
+.cart-item__remove,
+.cart-summary__clear {
+    color: #28231D;
+    text-decoration: none;
+}
+
+.cart-summary {
+    padding: 1.5rem;
+    border: 1px solid rgba(40, 35, 29, 0.12);
+    background-color: #fdfaf6;
+    position: sticky;
+    top: 1.5rem;
+}
+
+.cart-summary__title {
+    margin-bottom: 1.25rem;
+}
+
+.cart-summary__row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+}
+
+.cart-summary__button {
+    width: 100%;
+    margin-top: 1rem;
+    border-color: #28231D;
+    color: #28231D;
+}
+
+.cart-empty {
+    padding: 4rem 1rem 5rem;
+}
+
+@media (max-width: 767.98px) {
+    .cart-page {
+        padding: 40px 16px 56px;
+    }
+
+    .cart-item {
+        grid-template-columns: 1fr;
+    }
+
+    .cart-item__meta {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .cart-summary {
+        position: static;
+    }
+}

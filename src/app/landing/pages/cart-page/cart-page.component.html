@@ -1,0 +1,77 @@
+<section class="cart-page">
+    <div class="container-fluid cart-page__container">
+        <div class="row justify-content-center">
+            <div class="col-12 cart-page__header text-center">
+                <p class="cart-page__eyebrow">Carrito</p>
+                <h1>Resumen de productos</h1>
+            </div>
+        </div>
+
+        @if ((cartItems$ | async)?.length) {
+            <div class="row g-4">
+                <div class="col-lg-8">
+                    @for (item of cartItems$ | async; track item.id) {
+                        <article class="cart-item">
+                            <div class="cart-item__image-shell">
+                                <img
+                                    [src]="cdnUrl + item.imagePath"
+                                    [alt]="item.title"
+                                    class="cart-item__image"
+                                    loading="lazy"
+                                    decoding="async">
+                            </div>
+
+                            <div class="cart-item__content">
+                                <div>
+                                    <p class="cart-item__category">{{ item.category }}</p>
+                                    <h2 class="cart-item__title">{{ item.title }}</h2>
+                                    <p class="cart-item__description">{{ item.description }}</p>
+                                </div>
+
+                                <div class="cart-item__meta">
+                                    <span>$ {{ item.price | number : '1.2-2' }} / L</span>
+                                    <div class="cart-item__actions">
+                                        <button type="button" class="btn btn-outline-secondary rounded-0" (click)="decreaseQuantity(item.id)">-</button>
+                                        <span class="cart-item__quantity">{{ item.quantity }}</span>
+                                        <button type="button" class="btn btn-outline-secondary rounded-0" (click)="increaseQuantity(item)">+</button>
+                                        <button type="button" class="btn btn-link cart-item__remove" (click)="removeFromCart(item.id)">Quitar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    }
+                </div>
+
+                <div class="col-lg-4">
+                    <aside class="cart-summary">
+                        <h2 class="cart-summary__title">Tu pedido</h2>
+                        <div class="cart-summary__row">
+                            <span>Productos</span>
+                            <strong>{{ cartCount$ | async }}</strong>
+                        </div>
+                        <div class="cart-summary__row">
+                            <span>Subtotal</span>
+                            <strong>$ {{ (cartSubtotal$ | async) ?? 0 | number : '1.2-2' }}</strong>
+                        </div>
+                        <button type="button" class="btn btn-outline-secondary rounded-0 cart-summary__button" routerLink="/landing/contact">
+                            Continuar a contacto
+                        </button>
+                        <button type="button" class="btn btn-link cart-summary__clear" (click)="clearCart()">
+                            Vaciar carrito
+                        </button>
+                    </aside>
+                </div>
+            </div>
+        } @else {
+            <div class="row justify-content-center">
+                <div class="col-lg-6 text-center cart-empty">
+                    <h2>Tu carrito está vacío</h2>
+                    <p>Agrega esmaltes o engobes para verlos aquí.</p>
+                    <button type="button" class="btn btn-outline-secondary rounded-0" routerLink="/landing/catalogo/esmaltes">
+                        Ir al catálogo
+                    </button>
+                </div>
+            </div>
+        }
+    </div>
+</section>
