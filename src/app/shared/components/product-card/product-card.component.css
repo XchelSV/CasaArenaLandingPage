@@ -1,5 +1,7 @@
 .card {
   border: none;
+  border-bottom: 1.5px solid rgba(40, 35, 29, 0.16);
+  border-radius: 0;
   height: 100%;
 }
 
