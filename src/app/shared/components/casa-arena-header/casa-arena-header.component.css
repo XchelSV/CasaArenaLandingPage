@@ -48,6 +48,10 @@
         align-items: flex-start;
     }
 
+    #navbarNav .nav-link {
+        display: block;
+    }
+
     .casa-arena-cart-item {
         margin-left: 0;
     }
