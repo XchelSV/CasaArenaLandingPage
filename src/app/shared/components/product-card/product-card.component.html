@@ -33,6 +33,7 @@
         type="button"
         class="btn btn-outline-secondary rounded-0 product-card__button"
         [class.product-card__button--added]="addedToCart"
+        [disabled]="addedToCart"
         (click)="addToCart()">
         <span class="product-card__check" aria-hidden="true">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
