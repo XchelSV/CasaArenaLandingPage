@@ -50,28 +50,49 @@
 .product-card__button {
   width: 100%;
   border-color: #28231D;
+  background-color: transparent;
   color: #28231D;
   display: inline-flex;
+  position: relative;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  padding-inline: 1rem;
+  box-shadow: none;
   transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease;
 }
 
-.product-card__button:hover,
 .product-card__button--added {
   background-color: #28231D;
   color: #fff;
+}
+
+@media (hover: hover) {
+  .product-card__button:hover {
+    background-color: #28231D;
+    color: #fff;
+  }
+}
+
+.product-card__button:not(.product-card__button--added):active,
+.product-card__button:not(.product-card__button--added):focus,
+.product-card__button:not(.product-card__button--added):focus-visible {
+  background-color: transparent;
+  border-color: #28231D;
+  color: #28231D;
+  box-shadow: none;
 }
 
 .product-card__check {
   width: 1rem;
   height: 1rem;
   display: inline-flex;
+  position: absolute;
+  left: 1rem;
+  top: 50%;
   align-items: center;
   justify-content: center;
   opacity: 0;
-  transform: scale(0.6);
+  transform: translateY(-50%) scale(0.6);
   transition: opacity 180ms ease, transform 180ms ease;
 }
 
@@ -83,7 +104,19 @@
 
 .product-card__button--added .product-card__check {
   opacity: 1;
-  transform: scale(1);
+  transform: translateY(-50%) scale(1);
+}
+
+.product-card__label {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+@media (max-width: 767.98px) {
+  .product-card__check {
+    display: none;
+  }
 }
 
 @keyframes product-card-shimmer {
