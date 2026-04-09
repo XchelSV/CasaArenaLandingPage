@@ -15,6 +15,20 @@
     <div class="card-body">
       <h5 class="card-title">{{title}}</h5>
       <p class="card-text">{{description}}</p>
+      <label class="product-card__presentation-label" [attr.for]="'presentation-' + productId">
+        Presentación
+      </label>
+      <select
+        class="form-select rounded-0 product-card__presentation-select"
+        [id]="'presentation-' + productId"
+        [value]="selectedPresentationId"
+        (change)="onPresentationChange($any($event.target).value)">
+        @for (presentation of presentations; track presentation.id) {
+          <option [value]="presentation.id">
+            {{ presentation.label }} · $ {{ presentation.price | number : '1.2-2' }}
+          </option>
+        }
+      </select>
       <button
         type="button"
         class="btn btn-outline-secondary rounded-0 product-card__button"
@@ -28,7 +42,9 @@
         <span class="product-card__label">{{ addedToCart ? 'Agregado' : 'Agregar al carrito' }}</span>
       </button>
     </div>
-    <div class="card-footer text-muted">
-      $ {{price | number : '1.2-2'}} / L
-    </div>
+    <!--<div class="card-footer text-muted">
+      @if (selectedPresentation; as presentation) {
+        $ {{ presentation.price | number : '1.2-2' }} / {{ presentation.volumeLabel }}
+      }
+    </div>-->
 </div>

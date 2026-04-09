@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CartItem } from '../interfaces/cart-item.interface';
 
-type CartProduct = Omit<CartItem, 'quantity'>;
+type CartProduct = Omit<CartItem, 'quantity' | 'cartKey'>;
 
 @Injectable({
     providedIn: 'root'
@@ -22,24 +22,29 @@ export class CartService {
 
     addToCart(product: CartProduct): void {
         const cartItems = this.cartItemsSubject.getValue();
-        const existingItem = cartItems.find((item) => item.id === product.id);
+        const cartKey = this.buildCartKey(product.id, product.presentationId);
+        const normalizedProduct: Omit<CartItem, 'quantity'> = {
+            ...product,
+            cartKey
+        };
+        const existingItem = cartItems.find((item) => item.cartKey === cartKey);
 
-        const nextItems = existingItem
+        const nextItems: CartItem[] = existingItem
             ? cartItems.map((item) =>
-                item.id === product.id
+                item.cartKey === cartKey
                     ? { ...item, quantity: item.quantity + 1 }
                     : item
             )
-            : [...cartItems, { ...product, quantity: 1 }];
+            : [...cartItems, { ...normalizedProduct, quantity: 1 }];
 
         this.updateCart(nextItems);
     }
 
-    decreaseQuantity(productId: string): void {
+    decreaseQuantity(cartKey: string): void {
         const nextItems = this.cartItemsSubject
             .getValue()
             .flatMap((item) => {
-                if (item.id !== productId) {
+                if (item.cartKey !== cartKey) {
                     return [item];
                 }
 
@@ -53,10 +58,10 @@ export class CartService {
         this.updateCart(nextItems);
     }
 
-    removeFromCart(productId: string): void {
+    removeFromCart(cartKey: string): void {
         const nextItems = this.cartItemsSubject
             .getValue()
-            .filter((item) => item.id !== productId);
+            .filter((item) => item.cartKey !== cartKey);
 
         this.updateCart(nextItems);
     }
@@ -85,9 +90,46 @@ export class CartService {
         }
 
         try {
-            return JSON.parse(rawCart) as CartItem[];
+            const parsedCart = JSON.parse(rawCart) as Partial<CartItem>[];
+            return parsedCart.map((item) => this.normalizeCartItem(item)).filter((item): item is CartItem => item !== null);
         } catch {
             return [];
         }
+    }
+
+    private normalizeCartItem(item: Partial<CartItem>): CartItem | null {
+        if (
+            typeof item.id !== 'string' ||
+            typeof item.title !== 'string' ||
+            typeof item.description !== 'string' ||
+            typeof item.imagePath !== 'string' ||
+            typeof item.price !== 'number' ||
+            typeof item.category !== 'string'
+        ) {
+            return null;
+        }
+
+        const presentationId = typeof item.presentationId === 'string' ? item.presentationId : '1l';
+        const presentationLabel = typeof item.presentationLabel === 'string' ? item.presentationLabel : '1 L';
+        const cartKey = typeof item.cartKey === 'string'
+            ? item.cartKey
+            : this.buildCartKey(item.id, presentationId);
+
+        return {
+            id: item.id,
+            cartKey,
+            title: item.title,
+            description: item.description,
+            imagePath: item.imagePath,
+            price: item.price,
+            category: item.category,
+            presentationId,
+            presentationLabel,
+            quantity: typeof item.quantity === 'number' && item.quantity > 0 ? item.quantity : 1
+        };
+    }
+
+    private buildCartKey(productId: string, presentationId: string): string {
+        return `${productId}-${presentationId}`;
     }
 }

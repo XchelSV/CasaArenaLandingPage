@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DEFAULT_PRODUCT_PRESENTATIONS } from 'src/app/shared/constants/product-presentations';
+import { CatalogProduct } from 'src/app/shared/interfaces/catalog-product.interface';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -15,7 +17,7 @@ export class EsmaltesPageComponent implements OnInit {
   }
 
   cdnUrl = environment.CDN_URL;
-  products = [
+  readonly products: CatalogProduct[] = [
     {
       id: 'esmalte-1',
       category: 'Esmalte',
@@ -23,7 +25,7 @@ export class EsmaltesPageComponent implements OnInit {
       preview: '/images/Esmaltes/Background-less/Esmalte-1-removebg-preview-loader.png?d=500x550',
       title: 'ESMALTE COLOR X',
       description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit id aliquid distinctio labore',
-      price: 100
+      presentations: DEFAULT_PRODUCT_PRESENTATIONS
     },
     {
       id: 'esmalte-2',
@@ -32,7 +34,7 @@ export class EsmaltesPageComponent implements OnInit {
       preview: '/images/Esmaltes/Background-less/Esmalte-2-removebg-preview-loader.png?d=500x550',
       title: 'ESMALTE COLOR X',
       description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit id aliquid distinctio labore',
-      price: 100
+      presentations: DEFAULT_PRODUCT_PRESENTATIONS
     },
     {
       id: 'esmalte-3',
@@ -41,7 +43,7 @@ export class EsmaltesPageComponent implements OnInit {
       preview: '/images/Esmaltes/Background-less/Esmalte-3-removebg-preview-loader.png?d=500x550',
       title: 'ESMALTE COLOR X',
       description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit id aliquid distinctio labore',
-      price: 100
+      presentations: DEFAULT_PRODUCT_PRESENTATIONS
     },
     {
       id: 'esmalte-4',
@@ -50,7 +52,7 @@ export class EsmaltesPageComponent implements OnInit {
       preview: '/images/Esmaltes/Background-less/Esmalte-4-removebg-preview-loader.png?d=500x550',
       title: 'ESMALTE COLOR X',
       description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit id aliquid distinctio labore',
-      price: 100
+      presentations: DEFAULT_PRODUCT_PRESENTATIONS
     },
     {
       id: 'esmalte-5',
@@ -59,7 +61,7 @@ export class EsmaltesPageComponent implements OnInit {
       preview: '/images/Esmaltes/Background-less/Esmalte-5-removebg-preview-loader.png?d=500x550',
       title: 'ESMALTE COLOR X',
       description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit id aliquid distinctio labore',
-      price: 100
+      presentations: DEFAULT_PRODUCT_PRESENTATIONS
     },
     {
       id: 'esmalte-6',
@@ -68,7 +70,7 @@ export class EsmaltesPageComponent implements OnInit {
       preview: '/images/Esmaltes/Background-less/Esmalte-6-removebg-preview-loader.png?d=500x550',
       title: 'ESMALTE COLOR X',
       description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit id aliquid distinctio labore',
-      price: 100
+      presentations: DEFAULT_PRODUCT_PRESENTATIONS
     },
     {
       id: 'esmalte-7',
@@ -77,7 +79,7 @@ export class EsmaltesPageComponent implements OnInit {
       preview: '/images/Esmaltes/Background-less/Esmalte-7-removebg-preview-loader.png?d=500x550',
       title: 'ESMALTE COLOR X',
       description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit id aliquid distinctio labore',
-      price: 100
+      presentations: DEFAULT_PRODUCT_PRESENTATIONS
     },
     {
       id: 'esmalte-8',
@@ -86,7 +88,7 @@ export class EsmaltesPageComponent implements OnInit {
       preview: '/images/Esmaltes/Background-less/Esmalte-8-removebg-preview-loader.png?d=500x550',
       title: 'ESMALTE COLOR X',
       description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit id aliquid distinctio labore',
-      price: 100
+      presentations: DEFAULT_PRODUCT_PRESENTATIONS
     }
   ];
 

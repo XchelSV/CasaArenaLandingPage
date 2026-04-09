@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DEFAULT_PRODUCT_PRESENTATIONS } from 'src/app/shared/constants/product-presentations';
+import { CatalogProduct } from 'src/app/shared/interfaces/catalog-product.interface';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -15,7 +17,7 @@ export class EngobesPageComponent implements OnInit {
   }
 
   cdnUrl = environment.CDN_URL;
-  products = [
+  readonly products: CatalogProduct[] = [
     {
       id: 'engobe-1',
       category: 'Engobe',
@@ -23,7 +25,7 @@ export class EngobesPageComponent implements OnInit {
       preview: '/images/Esmaltes/Background-less/Esmalte-9-removebg-preview-loader.png?d=500x550',
       title: 'ENGOBE COLOR X',
       description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit id aliquid distinctio labore',
-      price: 100
+      presentations: DEFAULT_PRODUCT_PRESENTATIONS
     },
     {
       id: 'engobe-2',
@@ -32,7 +34,7 @@ export class EngobesPageComponent implements OnInit {
       preview: '/images/Esmaltes/Background-less/Esmalte-10-removebg-preview-loader.png?d=500x550',
       title: 'ENGOBE COLOR X',
       description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit id aliquid distinctio labore',
-      price: 100
+      presentations: DEFAULT_PRODUCT_PRESENTATIONS
     },
     {
       id: 'engobe-3',
@@ -41,7 +43,7 @@ export class EngobesPageComponent implements OnInit {
       preview: '/images/Esmaltes/Background-less/Esmalte-11-removebg-preview-loader.png?d=500x550',
       title: 'ENGOBE COLOR X',
       description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit id aliquid distinctio labore',
-      price: 100
+      presentations: DEFAULT_PRODUCT_PRESENTATIONS
     },
     {
       id: 'engobe-4',
@@ -50,7 +52,7 @@ export class EngobesPageComponent implements OnInit {
       preview: '/images/Esmaltes/Background-less/Esmalte-12-removebg-preview-loader.png?d=500x550',
       title: 'ENGOBE COLOR X',
       description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit id aliquid distinctio labore',
-      price: 100
+      presentations: DEFAULT_PRODUCT_PRESENTATIONS
     },
     {
       id: 'engobe-5',
@@ -59,7 +61,7 @@ export class EngobesPageComponent implements OnInit {
       preview: '/images/Esmaltes/Background-less/Esmalte-13-removebg-preview-loader.png?d=500x550',
       title: 'ENGOBE COLOR X',
       description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit id aliquid distinctio labore',
-      price: 100
+      presentations: DEFAULT_PRODUCT_PRESENTATIONS
     },
     {
       id: 'engobe-6',
@@ -68,7 +70,7 @@ export class EngobesPageComponent implements OnInit {
       preview: '/images/Esmaltes/Background-less/Esmalte-14-removebg-preview-loader.png?d=500x550',
       title: 'ENGOBE COLOR X',
       description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit id aliquid distinctio labore',
-      price: 100
+      presentations: DEFAULT_PRODUCT_PRESENTATIONS
     },
     {
       id: 'engobe-7',
@@ -77,7 +79,7 @@ export class EngobesPageComponent implements OnInit {
       preview: '/images/Esmaltes/Background-less/Esmalte-15-removebg-preview-loader.png?d=500x550',
       title: 'ENGOBE COLOR X',
       description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit id aliquid distinctio labore',
-      price: 100
+      presentations: DEFAULT_PRODUCT_PRESENTATIONS
     },
     {
       id: 'engobe-8',
@@ -86,7 +88,7 @@ export class EngobesPageComponent implements OnInit {
       preview: '/images/Esmaltes/Background-less/Esmalte-16-removebg-preview-loader.png?d=500x550',
       title: 'ENGOBE COLOR X',
       description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit id aliquid distinctio labore',
-      price: 100
+      presentations: DEFAULT_PRODUCT_PRESENTATIONS
     }
   ];
 

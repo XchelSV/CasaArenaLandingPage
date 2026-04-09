@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ProductPresentation } from '../../interfaces/product-presentation.interface';
 import { environment } from 'src/environments/environment';
 import { CartService } from '../../services/cart.service';
 
@@ -13,36 +14,54 @@ export class ProductCardComponent implements OnInit {
 
   constructor(private cartService: CartService) { }
 
-  ngOnInit(): void {
-  }
-
   @Input('image-path') imagePath: string = '';
   @Input('image-preview') imagePreview: string = '';
   @Input('title') title: string = '';
   @Input('description') description: string = '';
-  @Input('price') price: number = 0;
   @Input('product-id') productId: string = '';
   @Input('category') category: string = '';
+  @Input('presentations') presentations: ProductPresentation[] = [];
 
   cdnUrl = environment.CDN_URL;
   imageLoaded = false;
   addedToCart = false;
+  selectedPresentationId = '';
 
   onImageLoad(): void {
     this.imageLoaded = true;
   }
 
+  get selectedPresentation(): ProductPresentation | undefined {
+    return this.presentations.find((presentation) => presentation.id === this.selectedPresentationId);
+  }
+
+  ngOnInit(): void {
+    this.selectedPresentationId = this.presentations[0]?.id ?? '';
+  }
+
   addToCart(): void {
+    const selectedPresentation = this.selectedPresentation;
+
+    if (!selectedPresentation) {
+      return;
+    }
+
     this.cartService.addToCart({
       id: this.productId,
       title: this.title,
       description: this.description,
       imagePath: this.imagePath,
-      price: this.price,
-      category: this.category
+      price: selectedPresentation.price,
+      category: this.category,
+      presentationId: selectedPresentation.id,
+      presentationLabel: selectedPresentation.label
     });
 
     this.showAddedToCartFeedback();
+  }
+
+  onPresentationChange(presentationId: string): void {
+    this.selectedPresentationId = presentationId;
   }
 
   private showAddedToCartFeedback(): void {

@@ -67,6 +67,14 @@
     color: rgba(40, 35, 29, 0.8);
 }
 
+.cart-item__presentation {
+    margin: 0.6rem 0 0;
+    font-size: 0.9rem;
+    letter-spacing: 0.08rem;
+    text-transform: uppercase;
+    color: #28231D;
+}
+
 .cart-item__meta {
     display: flex;
     justify-content: space-between;

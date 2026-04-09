@@ -18,8 +18,8 @@ export class CartPageComponent {
 
     constructor(private cartService: CartService) {}
 
-    decreaseQuantity(productId: string): void {
-        this.cartService.decreaseQuantity(productId);
+    decreaseQuantity(cartKey: string): void {
+        this.cartService.decreaseQuantity(cartKey);
     }
 
     increaseQuantity(item: CartItem): void {
@@ -29,12 +29,14 @@ export class CartPageComponent {
             description: item.description,
             imagePath: item.imagePath,
             price: item.price,
-            category: item.category
+            category: item.category,
+            presentationId: item.presentationId,
+            presentationLabel: item.presentationLabel
         });
     }
 
-    removeFromCart(productId: string): void {
-        this.cartService.removeFromCart(productId);
+    removeFromCart(cartKey: string): void {
+        this.cartService.removeFromCart(cartKey);
     }
 
     clearCart(): void {

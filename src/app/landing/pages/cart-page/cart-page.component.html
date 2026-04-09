@@ -10,7 +10,7 @@
         @if ((cartItems$ | async)?.length) {
             <div class="row g-4">
                 <div class="col-lg-8">
-                    @for (item of cartItems$ | async; track item.id) {
+                    @for (item of cartItems$ | async; track item.cartKey) {
                         <article class="cart-item">
                             <div class="cart-item__image-shell">
                                 <img
@@ -26,15 +26,16 @@
                                     <p class="cart-item__category">{{ item.category }}</p>
                                     <h2 class="cart-item__title">{{ item.title }}</h2>
                                     <p class="cart-item__description">{{ item.description }}</p>
+                                    <p class="cart-item__presentation">{{ item.presentationLabel }}</p>
                                 </div>
 
                                 <div class="cart-item__meta">
-                                    <span>$ {{ item.price | number : '1.2-2' }} / L</span>
+                                    <span>$ {{ item.price | number : '1.2-2' }} / {{ item.presentationLabel }}</span>
                                     <div class="cart-item__actions">
-                                        <button type="button" class="btn btn-outline-secondary rounded-0" (click)="decreaseQuantity(item.id)">-</button>
+                                        <button type="button" class="btn btn-outline-secondary rounded-0" (click)="decreaseQuantity(item.cartKey)">-</button>
                                         <span class="cart-item__quantity">{{ item.quantity }}</span>
                                         <button type="button" class="btn btn-outline-secondary rounded-0" (click)="increaseQuantity(item)">+</button>
-                                        <button type="button" class="btn btn-link cart-item__remove" (click)="removeFromCart(item.id)">Quitar</button>
+                                        <button type="button" class="btn btn-link cart-item__remove" (click)="removeFromCart(item.cartKey)">Quitar</button>
                                     </div>
                                 </div>
                             </div>
