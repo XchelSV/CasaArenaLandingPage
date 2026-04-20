@@ -20,6 +20,7 @@ export const environment = {
    mapsApiKey: "${process.env.MAPS_API_KEY}",
    WHATSAPP_SOURCE_MOBILE: "${process.env.WHATSAPP_SOURCE_MOBILE}",
    CDN_URL: "${process.env.CDN_URL}",
+   API_GATEWAY: "${process.env.API_GATEWAY}"
 };
 `;
 

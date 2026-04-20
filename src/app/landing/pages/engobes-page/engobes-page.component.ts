@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { DEFAULT_PRODUCT_PRESENTATIONS } from 'src/app/shared/constants/product-presentations';
+import { take } from 'rxjs';
 import { CatalogProduct } from 'src/app/shared/interfaces/catalog-product.interface';
+import { CatalogService } from 'src/app/shared/services/catalog.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -11,85 +12,37 @@ import { environment } from 'src/environments/environment';
 })
 export class EngobesPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private readonly catalogService: CatalogService) { }
+
+  readonly category = 'Engobe';
+  readonly cdnUrl = environment.CDN_URL;
+  readonly skeletonCards = Array.from({ length: 4 }, (_, index) => index);
+
+  products: CatalogProduct[] = [];
+  isLoading = true;
+  errorMessage = '';
 
   ngOnInit(): void {
+    this.loadProducts();
   }
 
-  cdnUrl = environment.CDN_URL;
-  readonly products: CatalogProduct[] = [
-    {
-      id: 'engobe-1',
-      category: 'Engobe',
-      image: '/images/Esmaltes/Background-less/Esmalte-9-removebg-preview.png?d=500x550',
-      preview: '/images/Esmaltes/Background-less/Esmalte-9-removebg-preview-loader.png?d=500x550',
-      title: 'ENGOBE COLOR X',
-      description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit id aliquid distinctio labore',
-      presentations: DEFAULT_PRODUCT_PRESENTATIONS
-    },
-    {
-      id: 'engobe-2',
-      category: 'Engobe',
-      image: '/images/Esmaltes/Background-less/Esmalte-10-removebg-preview.png?d=500x550',
-      preview: '/images/Esmaltes/Background-less/Esmalte-10-removebg-preview-loader.png?d=500x550',
-      title: 'ENGOBE COLOR X',
-      description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit id aliquid distinctio labore',
-      presentations: DEFAULT_PRODUCT_PRESENTATIONS
-    },
-    {
-      id: 'engobe-3',
-      category: 'Engobe',
-      image: '/images/Esmaltes/Background-less/Esmalte-11-removebg-preview.png?d=500x550',
-      preview: '/images/Esmaltes/Background-less/Esmalte-11-removebg-preview-loader.png?d=500x550',
-      title: 'ENGOBE COLOR X',
-      description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit id aliquid distinctio labore',
-      presentations: DEFAULT_PRODUCT_PRESENTATIONS
-    },
-    {
-      id: 'engobe-4',
-      category: 'Engobe',
-      image: '/images/Esmaltes/Background-less/Esmalte-12-removebg-preview.png?d=500x550',
-      preview: '/images/Esmaltes/Background-less/Esmalte-12-removebg-preview-loader.png?d=500x550',
-      title: 'ENGOBE COLOR X',
-      description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit id aliquid distinctio labore',
-      presentations: DEFAULT_PRODUCT_PRESENTATIONS
-    },
-    {
-      id: 'engobe-5',
-      category: 'Engobe',
-      image: '/images/Esmaltes/Background-less/Esmalte-13-removebg-preview.png?d=500x550',
-      preview: '/images/Esmaltes/Background-less/Esmalte-13-removebg-preview-loader.png?d=500x550',
-      title: 'ENGOBE COLOR X',
-      description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit id aliquid distinctio labore',
-      presentations: DEFAULT_PRODUCT_PRESENTATIONS
-    },
-    {
-      id: 'engobe-6',
-      category: 'Engobe',
-      image: '/images/Esmaltes/Background-less/Esmalte-14-removebg-preview.png?d=500x550',
-      preview: '/images/Esmaltes/Background-less/Esmalte-14-removebg-preview-loader.png?d=500x550',
-      title: 'ENGOBE COLOR X',
-      description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit id aliquid distinctio labore',
-      presentations: DEFAULT_PRODUCT_PRESENTATIONS
-    },
-    {
-      id: 'engobe-7',
-      category: 'Engobe',
-      image: '/images/Esmaltes/Background-less/Esmalte-15-removebg-preview.png?d=500x550',
-      preview: '/images/Esmaltes/Background-less/Esmalte-15-removebg-preview-loader.png?d=500x550',
-      title: 'ENGOBE COLOR X',
-      description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit id aliquid distinctio labore',
-      presentations: DEFAULT_PRODUCT_PRESENTATIONS
-    },
-    {
-      id: 'engobe-8',
-      category: 'Engobe',
-      image: '/images/Esmaltes/Background-less/Esmalte-16-removebg-preview.png?d=500x550',
-      preview: '/images/Esmaltes/Background-less/Esmalte-16-removebg-preview-loader.png?d=500x550',
-      title: 'ENGOBE COLOR X',
-      description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit id aliquid distinctio labore',
-      presentations: DEFAULT_PRODUCT_PRESENTATIONS
-    }
-  ];
+  loadProducts(forceRefresh = false): void {
+    this.isLoading = true;
+    this.errorMessage = '';
+
+    this.catalogService.getProductsByCategory(this.category, forceRefresh)
+      .pipe(take(1))
+      .subscribe({
+        next: (products) => {
+          this.products = products;
+          this.isLoading = false;
+        },
+        error: () => {
+          this.products = [];
+          this.isLoading = false;
+          this.errorMessage = 'No pudimos cargar los engobes en este momento. Intenta de nuevo en unos segundos, por favor.';
+        }
+      });
+  }
 
 }

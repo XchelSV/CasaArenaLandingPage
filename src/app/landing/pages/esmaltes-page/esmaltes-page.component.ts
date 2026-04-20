@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { DEFAULT_PRODUCT_PRESENTATIONS } from 'src/app/shared/constants/product-presentations';
+import { take } from 'rxjs';
 import { CatalogProduct } from 'src/app/shared/interfaces/catalog-product.interface';
+import { CatalogService } from 'src/app/shared/services/catalog.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -11,85 +12,37 @@ import { environment } from 'src/environments/environment';
 })
 export class EsmaltesPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private readonly catalogService: CatalogService) { }
+
+  readonly category = 'Esmalte';
+  readonly cdnUrl = environment.CDN_URL;
+  readonly skeletonCards = Array.from({ length: 4 }, (_, index) => index);
+
+  products: CatalogProduct[] = [];
+  isLoading = true;
+  errorMessage = '';
 
   ngOnInit(): void {
+    this.loadProducts();
   }
 
-  cdnUrl = environment.CDN_URL;
-  readonly products: CatalogProduct[] = [
-    {
-      id: 'esmalte-1',
-      category: 'Esmalte',
-      image: '/images/Esmaltes/Background-less/Esmalte-1-removebg-preview.png?d=500x550',
-      preview: '/images/Esmaltes/Background-less/Esmalte-1-removebg-preview-loader.png?d=500x550',
-      title: 'ESMALTE COLOR X',
-      description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit id aliquid distinctio labore',
-      presentations: DEFAULT_PRODUCT_PRESENTATIONS
-    },
-    {
-      id: 'esmalte-2',
-      category: 'Esmalte',
-      image: '/images/Esmaltes/Background-less/Esmalte-2-removebg-preview.png?d=500x550',
-      preview: '/images/Esmaltes/Background-less/Esmalte-2-removebg-preview-loader.png?d=500x550',
-      title: 'ESMALTE COLOR X',
-      description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit id aliquid distinctio labore',
-      presentations: DEFAULT_PRODUCT_PRESENTATIONS
-    },
-    {
-      id: 'esmalte-3',
-      category: 'Esmalte',
-      image: '/images/Esmaltes/Background-less/Esmalte-3-removebg-preview.png?d=500x550',
-      preview: '/images/Esmaltes/Background-less/Esmalte-3-removebg-preview-loader.png?d=500x550',
-      title: 'ESMALTE COLOR X',
-      description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit id aliquid distinctio labore',
-      presentations: DEFAULT_PRODUCT_PRESENTATIONS
-    },
-    {
-      id: 'esmalte-4',
-      category: 'Esmalte',
-      image: '/images/Esmaltes/Background-less/Esmalte-4-removebg-preview.png?d=500x550',
-      preview: '/images/Esmaltes/Background-less/Esmalte-4-removebg-preview-loader.png?d=500x550',
-      title: 'ESMALTE COLOR X',
-      description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit id aliquid distinctio labore',
-      presentations: DEFAULT_PRODUCT_PRESENTATIONS
-    },
-    {
-      id: 'esmalte-5',
-      category: 'Esmalte',
-      image: '/images/Esmaltes/Background-less/Esmalte-5-removebg-preview.png?d=500x550',
-      preview: '/images/Esmaltes/Background-less/Esmalte-5-removebg-preview-loader.png?d=500x550',
-      title: 'ESMALTE COLOR X',
-      description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit id aliquid distinctio labore',
-      presentations: DEFAULT_PRODUCT_PRESENTATIONS
-    },
-    {
-      id: 'esmalte-6',
-      category: 'Esmalte',
-      image: '/images/Esmaltes/Background-less/Esmalte-6-removebg-preview.png?d=500x550',
-      preview: '/images/Esmaltes/Background-less/Esmalte-6-removebg-preview-loader.png?d=500x550',
-      title: 'ESMALTE COLOR X',
-      description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit id aliquid distinctio labore',
-      presentations: DEFAULT_PRODUCT_PRESENTATIONS
-    },
-    {
-      id: 'esmalte-7',
-      category: 'Esmalte',
-      image: '/images/Esmaltes/Background-less/Esmalte-7-removebg-preview.png?d=500x550',
-      preview: '/images/Esmaltes/Background-less/Esmalte-7-removebg-preview-loader.png?d=500x550',
-      title: 'ESMALTE COLOR X',
-      description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit id aliquid distinctio labore',
-      presentations: DEFAULT_PRODUCT_PRESENTATIONS
-    },
-    {
-      id: 'esmalte-8',
-      category: 'Esmalte',
-      image: '/images/Esmaltes/Background-less/Esmalte-8-removebg-preview.png?d=500x550',
-      preview: '/images/Esmaltes/Background-less/Esmalte-8-removebg-preview-loader.png?d=500x550',
-      title: 'ESMALTE COLOR X',
-      description: 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit id aliquid distinctio labore',
-      presentations: DEFAULT_PRODUCT_PRESENTATIONS
-    }
-  ];
+  loadProducts(forceRefresh = false): void {
+    this.isLoading = true;
+    this.errorMessage = '';
+
+    this.catalogService.getProductsByCategory(this.category, forceRefresh)
+      .pipe(take(1))
+      .subscribe({
+        next: (products) => {
+          this.products = products;
+          this.isLoading = false;
+        },
+        error: () => {
+          this.products = [];
+          this.isLoading = false;
+          this.errorMessage = 'No pudimos cargar los esmaltes en este momento. Intenta de nuevo en unos segundos, por favor.';
+        }
+      });
+  }
 
 }

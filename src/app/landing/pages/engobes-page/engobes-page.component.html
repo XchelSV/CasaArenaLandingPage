@@ -14,18 +14,49 @@
 
 <div class="container-fluid text-center">
   <div class="row mb-3">
-    @for (product of products; track product) {
-      <div class="col-md-3 col-6 mt-1">
-        <product-card
-          [product-id]=product.id
-          [category]=product.category
-          [image-path]=product.image
-          [image-preview]=product.preview
-          [title]=product.title
-          [description]=product.description
-          [presentations]=product.presentations
-        ></product-card>
+    @if (isLoading) {
+      @for (skeletonCard of skeletonCards; track skeletonCard) {
+        <div class="col-md-3 col-6 mt-1">
+          <div class="catalog-skeleton-card" aria-hidden="true">
+            <div class="catalog-skeleton-card__image"></div>
+            <div class="catalog-skeleton-card__body">
+              <div class="catalog-skeleton-card__line catalog-skeleton-card__line--title"></div>
+              <div class="catalog-skeleton-card__line"></div>
+              <div class="catalog-skeleton-card__line catalog-skeleton-card__line--short"></div>
+              <div class="catalog-skeleton-card__label"></div>
+              <div class="catalog-skeleton-card__select"></div>
+              <div class="catalog-skeleton-card__button"></div>
+            </div>
+          </div>
+        </div>
+      }
+    } @else if (errorMessage) {
+      <div class="col-12 catalog-status">
+        <p class="catalog-status__title">No fue posible mostrar el catálogo</p>
+        <p class="catalog-status__text">{{ errorMessage }}</p>
+        <button type="button" class="btn btn-outline-secondary rounded-0" (click)="loadProducts(true)">
+          Reintentar
+        </button>
       </div>
+    } @else if (products.length === 0) {
+      <div class="col-12 catalog-status">
+        <p class="catalog-status__title">No hay engobes disponibles por ahora</p>
+        <p class="catalog-status__text">Vuelve más tarde y con gusto te mostraremos nuevas opciones.</p>
+      </div>
+    } @else {
+      @for (product of products; track product.id) {
+        <div class="col-md-3 col-6 mt-1">
+          <product-card
+            [product-id]=product.id
+            [category]=product.category
+            [image-path]=product.image
+            [image-preview]=product.preview
+            [title]=product.title
+            [description]=product.description
+            [presentations]=product.presentations
+          ></product-card>
+        </div>
+      }
     }
   </div>
 </div>

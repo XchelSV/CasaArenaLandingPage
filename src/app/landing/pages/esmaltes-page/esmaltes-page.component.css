@@ -15,10 +15,101 @@
     padding: 36px 50px;
 }
 
+.catalog-skeleton-card {
+    height: 100%;
+    border-bottom: 1.5px solid rgba(40, 35, 29, 0.16);
+}
+
+.catalog-skeleton-card__body {
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+    padding: 0 1rem 1rem;
+}
+
+.catalog-skeleton-card__image,
+.catalog-skeleton-card__line,
+.catalog-skeleton-card__label,
+.catalog-skeleton-card__select,
+.catalog-skeleton-card__button {
+    background: linear-gradient(
+        110deg,
+        rgba(245, 245, 245, 0.9) 8%,
+        rgba(255, 255, 255, 1) 18%,
+        rgba(245, 245, 245, 0.9) 33%
+    );
+    background-size: 200% 100%;
+    animation: catalog-skeleton-shimmer 1.2s linear infinite;
+    border-radius: 6px;
+}
+
+.catalog-skeleton-card__image {
+    aspect-ratio: 10 / 11;
+    margin: 10px;
+}
+
+.catalog-skeleton-card__line {
+    height: .95rem;
+}
+
+.catalog-skeleton-card__line--title {
+    width: 72%;
+    height: 1.2rem;
+}
+
+.catalog-skeleton-card__line--short {
+    width: 58%;
+}
+
+.catalog-skeleton-card__label {
+    width: 42%;
+    height: .78rem;
+    margin-top: .2rem;
+}
+
+.catalog-skeleton-card__select {
+    height: 2.75rem;
+}
+
+.catalog-skeleton-card__button {
+    height: 2.4rem;
+}
+
+.catalog-status {
+    padding: 2rem 1.5rem 3rem;
+}
+
+.catalog-status__title {
+    margin-bottom: .5rem;
+    font-size: 1.2rem;
+    letter-spacing: .08rem;
+}
+
+.catalog-status__text {
+    max-width: 32rem;
+    margin: 0 auto 1rem;
+    color: #5f5f5f;
+}
+
+@keyframes catalog-skeleton-shimmer {
+    to {
+        background-position-x: -200%;
+    }
+}
+
 @media only screen and (min-width: 120px) and (max-width: 767.98px) {
     .hero-image {
         height: 120px; 
     }
+
+    .catalog-skeleton-card__select {
+        height: 3rem;
+    }
+
+    .catalog-skeleton-card__button {
+        height: 2.7rem;
+    }
+
     .banner-title {
         padding: 36px 25px;
     }
