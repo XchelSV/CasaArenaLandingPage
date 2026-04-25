@@ -7,6 +7,7 @@ import { TalleresPageComponent } from './pages/talleres-page/talleres-page.compo
 import { EsmaltesPageComponent } from './pages/esmaltes-page/esmaltes-page.component';
 import { EngobesPageComponent } from './pages/engobes-page/engobes-page.component';
 import { CartPageComponent } from './pages/cart-page/cart-page.component';
+import { CheckoutPageComponent } from './pages/checkout-page/checkout-page.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,7 @@ const routes: Routes = [
       { path: 'catalogo/esmaltes', component: EsmaltesPageComponent },
       { path: 'catalogo/engobes', component: EngobesPageComponent },
       { path: 'carrito', component: CartPageComponent },
+      { path: 'checkout', component: CheckoutPageComponent },
       { path: 'contact', component: ContactPageComponent },
       { path: '**', redirectTo: 'home' },
     ]

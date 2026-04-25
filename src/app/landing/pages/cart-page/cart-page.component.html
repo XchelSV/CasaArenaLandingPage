@@ -54,8 +54,15 @@
                             <span>Subtotal</span>
                             <strong>$ {{ (cartSubtotal$ | async) ?? 0 | number : '1.2-2' }}</strong>
                         </div>
-                        <button type="button" class="btn btn-outline-secondary rounded-0 cart-summary__button" routerLink="/landing/contact">
-                            Continuar a contacto
+                        @if (checkoutErrorMessage) {
+                            <p class="cart-summary__error">{{ checkoutErrorMessage }}</p>
+                        }
+                        <button
+                            type="button"
+                            class="btn btn-outline-secondary rounded-0 cart-summary__button"
+                            (click)="continueToCheckout()"
+                            [disabled]="isContinuingToCheckout">
+                            {{ isContinuingToCheckout ? 'Validando carrito...' : 'Continuar al pago' }}
                         </button>
                         <button type="button" class="btn btn-link cart-summary__clear" (click)="clearCart()">
                             Vaciar carrito

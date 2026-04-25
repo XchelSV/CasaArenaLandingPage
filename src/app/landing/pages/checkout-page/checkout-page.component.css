@@ -1,0 +1,178 @@
+.checkout-page {
+    padding: 3rem 0 5rem;
+    background: linear-gradient(180deg, #f7f1e8 0%, #fffdf9 48%, #f1e3d2 100%);
+}
+
+.checkout-page__container {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+.checkout-page__eyebrow {
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.35rem;
+    font-size: 0.85rem;
+    color: #7f5f4b;
+}
+
+.checkout-page__header,
+.checkout-panel__heading,
+.checkout-summary__title {
+    margin-bottom: 1rem;
+}
+
+.checkout-panel,
+.checkout-summary,
+.checkout-item {
+    background: rgba(255, 252, 247, 0.94);
+    border: 1px solid rgba(40, 35, 29, 0.08);
+}
+
+.checkout-panel,
+.checkout-summary {
+    padding: 1.5rem;
+    box-shadow: 0 24px 60px rgba(90, 63, 34, 0.08);
+}
+
+.checkout-panel__section + .checkout-panel__section {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(40, 35, 29, 0.08);
+}
+
+.checkout-panel__heading,
+.checkout-summary__row,
+.checkout-item__meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.checkout-panel__heading {
+    align-items: center;
+}
+
+.checkout-items {
+    display: grid;
+    gap: 1rem;
+}
+
+.checkout-item {
+    display: grid;
+    grid-template-columns: 124px 1fr;
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem;
+}
+
+.checkout-item__image-shell {
+    aspect-ratio: 1 / 1;
+    background: #f3ece1;
+    overflow: hidden;
+}
+
+.checkout-item__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.checkout-item__content {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.checkout-item__category {
+    margin: 0 0 0.35rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    color: #8c6d53;
+    font-size: 0.8rem;
+}
+
+.checkout-item__title,
+.checkout-item__presentation,
+.checkout-payment-placeholder p,
+.checkout-empty h2,
+.checkout-empty p,
+.checkout-panel__heading h2,
+.checkout-summary__title {
+    margin: 0;
+}
+
+.checkout-item__presentation {
+    color: #5f564e;
+}
+
+.checkout-summary {
+    position: sticky;
+    top: 1.5rem;
+}
+
+.checkout-summary__row + .checkout-summary__row {
+    margin-top: 0.85rem;
+}
+
+.checkout-payment-placeholder {
+    padding: 1.25rem;
+    background: linear-gradient(135deg, #f6ede1, #fffaf4);
+    border: 1px dashed rgba(40, 35, 29, 0.18);
+}
+
+.form-label {
+    color: #4d4137;
+    font-weight: 500;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #7f5f4b;
+    box-shadow: 0 0 0 0.2rem rgba(127, 95, 75, 0.15);
+}
+
+.checkout-empty {
+    padding: 4rem 1rem;
+}
+
+.btn-outline-secondary,
+.btn-outline-secondary:active,
+.btn-outline-secondary:visited {
+    border-color: #28231d;
+    background-color: #28231d;
+    border-width: 2px;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #36322d;
+}
+
+@media (max-width: 991.98px) {
+    .checkout-summary {
+        position: static;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .checkout-page {
+        padding: 2rem 0 4rem;
+    }
+
+    .checkout-page__container {
+        padding: 0 1rem;
+    }
+
+    .checkout-panel,
+    .checkout-summary {
+        padding: 1.25rem;
+    }
+
+    .checkout-item {
+        grid-template-columns: 1fr;
+    }
+
+    .checkout-item__image-shell {
+        max-width: 220px;
+    }
+}

@@ -7,10 +7,12 @@ import { MainPageComponent } from './pages/main-page/main-page.component';
 import { ContactPageComponent } from './pages/contact-page/contact-page.component';
 import { SharedModule } from '../shared/shared.module';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { TalleresPageComponent } from './pages/talleres-page/talleres-page.component';
 import { EsmaltesPageComponent } from './pages/esmaltes-page/esmaltes-page.component';
 import { EngobesPageComponent } from './pages/engobes-page/engobes-page.component';
 import { CartPageComponent } from './pages/cart-page/cart-page.component';
+import { CheckoutPageComponent } from './pages/checkout-page/checkout-page.component';
 
 
 @NgModule({
@@ -21,11 +23,13 @@ import { CartPageComponent } from './pages/cart-page/cart-page.component';
     TalleresPageComponent,
     EsmaltesPageComponent,
     EngobesPageComponent,
-    CartPageComponent
+    CartPageComponent,
+    CheckoutPageComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     LandingRoutingModule,
     SharedModule
   ]

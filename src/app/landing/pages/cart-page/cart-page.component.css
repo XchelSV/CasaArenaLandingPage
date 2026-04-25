@@ -103,7 +103,7 @@
 .cart-summary {
     padding: 1.5rem;
     border: 1px solid rgba(40, 35, 29, 0.12);
-    background-color: #fdfaf6;
+    background-color: #fff;
     position: sticky;
     top: 1.5rem;
 }
@@ -123,6 +123,17 @@
     margin-top: 1rem;
     border-color: #28231D;
     color: #28231D;
+}
+
+.cart-summary__button[disabled] {
+    opacity: 0.7;
+    cursor: wait;
+}
+
+.cart-summary__error {
+    margin: 1rem 0 0;
+    color: #9a3412;
+    font-size: 0.95rem;
 }
 
 .cart-empty {

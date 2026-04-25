@@ -70,6 +70,14 @@ export class CartService {
         this.updateCart([]);
     }
 
+    replaceCart(items: CartItem[]): void {
+        const normalizedItems = items
+            .map((item) => this.normalizeCartItem(item))
+            .filter((item): item is CartItem => item !== null);
+
+        this.updateCart(normalizedItems);
+    }
+
     private updateCart(items: CartItem[]): void {
         this.cartItemsSubject.next(items);
 

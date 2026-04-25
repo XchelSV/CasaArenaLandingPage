@@ -1,0 +1,135 @@
+<section class="checkout-page">
+    <div class="container-fluid checkout-page__container">
+        <div class="row justify-content-center">
+            <div class="col-12 checkout-page__header text-center">
+                <p class="checkout-page__eyebrow">Checkout</p>
+                <h1>Completa tu pedido</h1>
+            </div>
+        </div>
+
+        @if ((cartItems$ | async)?.length) {
+            <div class="row g-4 align-items-start">
+                <div class="col-xl-7">
+                    <section class="checkout-panel">
+                        <div class="checkout-panel__section">
+                            <div class="checkout-panel__heading">
+                                <h2>Resumen de productos</h2>
+                                <span>{{ cartCount$ | async }} artículo(s)</span>
+                            </div>
+
+                            <div class="checkout-items">
+                                @for (item of cartItems$ | async; track item.cartKey) {
+                                    <article class="checkout-item">
+                                        <div class="checkout-item__image-shell">
+                                            <img
+                                                [src]="cdnUrl + item.imagePath"
+                                                [alt]="item.title"
+                                                class="checkout-item__image"
+                                                loading="lazy"
+                                                decoding="async">
+                                        </div>
+
+                                        <div class="checkout-item__content">
+                                            <div>
+                                                <p class="checkout-item__category">{{ item.category }}</p>
+                                                <h3 class="checkout-item__title">{{ item.title }}</h3>
+                                                <p class="checkout-item__presentation">{{ item.presentationLabel }}</p>
+                                            </div>
+
+                                            <div class="checkout-item__meta">
+                                                <span>Cantidad: {{ item.quantity }}</span>
+                                                <strong>$ {{ item.price * item.quantity | number : '1.2-2' }}</strong>
+                                            </div>
+                                        </div>
+                                    </article>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="checkout-panel__section">
+                            <div class="checkout-panel__heading">
+                                <h2>Dirección de envío</h2>
+                            </div>
+
+                            <form class="row g-3" [formGroup]="checkoutForm">
+                                <div class="col-md-6">
+                                    <label class="form-label" for="fullName">Nombre completo</label>
+                                    <input id="fullName" type="text" class="form-control rounded-0" formControlName="fullName" placeholder="Nombre completo">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label" for="phoneNumber">Número de teléfono</label>
+                                    <input id="phoneNumber" type="tel" class="form-control rounded-0" formControlName="phoneNumber" placeholder="Número de teléfono">
+                                </div>
+
+                                <div class="col-12">
+                                    <label class="form-label" for="address">Dirección</label>
+                                    <input id="address" type="text" class="form-control rounded-0" formControlName="address" placeholder="Calle y número">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label" for="postalCode">Código postal</label>
+                                    <input id="postalCode" type="text" class="form-control rounded-0" formControlName="postalCode" placeholder="Código postal">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label" for="neighborhood">Colonia</label>
+                                    <input id="neighborhood" type="text" class="form-control rounded-0" formControlName="neighborhood" placeholder="Colonia">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label" for="state">Estado</label>
+                                    <select id="state" class="form-select rounded-0" formControlName="state">
+                                        <option value="">Selecciona un estado</option>
+                                        @for (state of mexicoStates; track state) {
+                                            <option [value]="state">{{ state }}</option>
+                                        }
+                                    </select>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label" for="city">Ciudad</label>
+                                    <input id="city" type="text" class="form-control rounded-0" formControlName="city" placeholder="Ciudad">
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="checkout-panel__section">
+                            <div class="checkout-panel__heading">
+                                <h2>Datos de pago</h2>
+                            </div>
+
+                            <div class="checkout-payment-placeholder">
+                                <p>Este espacio quedará preparado para la integración de pago.</p>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="col-xl-5">
+                    <aside class="checkout-summary">
+                        <h2 class="checkout-summary__title">Tu pedido</h2>
+                        <div class="checkout-summary__row">
+                            <span>Productos</span>
+                            <strong>{{ cartCount$ | async }}</strong>
+                        </div>
+                        <div class="checkout-summary__row">
+                            <span>Total</span>
+                            <strong>$ {{ (cartSubtotal$ | async) ?? 0 | number : '1.2-2' }}</strong>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        } @else {
+            <div class="row justify-content-center">
+                <div class="col-lg-6 text-center checkout-empty">
+                    <h2>No hay productos para continuar con el pago</h2>
+                    <p>Agrega productos al carrito para ver el checkout.</p>
+                    <button type="button" class="btn btn-outline-secondary rounded-0" routerLink="/landing/catalogo/esmaltes">
+                        Ir al catálogo
+                    </button>
+                </div>
+            </div>
+        }
+    </div>
+</section>
