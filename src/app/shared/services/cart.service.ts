@@ -10,6 +10,7 @@ type CartProduct = Omit<CartItem, 'quantity' | 'cartKey'>;
 })
 export class CartService {
     private readonly storageKey = 'casa-arena-cart';
+    private readonly orderIdStorageKey = 'casa-arena-order-id';
     private readonly cartItemsSubject = new BehaviorSubject<CartItem[]>(this.readCartFromStorage());
 
     readonly cartItems$ = this.cartItemsSubject.asObservable();
@@ -76,6 +77,22 @@ export class CartService {
             .filter((item): item is CartItem => item !== null);
 
         this.updateCart(normalizedItems);
+    }
+
+    setOrderId(orderId: string): void {
+        if (typeof window === 'undefined') {
+            return;
+        }
+
+        window.localStorage.setItem(this.orderIdStorageKey, orderId);
+    }
+
+    getOrderId(): string | null {
+        if (typeof window === 'undefined') {
+            return null;
+        }
+
+        return window.localStorage.getItem(this.orderIdStorageKey);
     }
 
     private updateCart(items: CartItem[]): void {

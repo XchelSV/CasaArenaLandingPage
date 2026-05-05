@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, map, switchMap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { CartItem } from '../interfaces/cart-item.interface';
+import { ValidatedCartResponse } from '../interfaces/validated-cart-response.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -13,7 +14,7 @@ export class CartValidationService {
 
     constructor(private readonly http: HttpClient) {}
 
-    validateCart(cartItems: CartItem[]): Observable<CartItem[]> {
+    validateCart(cartItems: CartItem[]): Observable<ValidatedCartResponse> {
         return this.validateCartRequest(cartItems).pipe(
             catchError(() =>
                 this.createGuestSession().pipe(
@@ -23,11 +24,25 @@ export class CartValidationService {
         );
     }
 
-    private validateCartRequest(cartItems: CartItem[]): Observable<CartItem[]> {
-        return this.http.post<CartItem[]>(this.validateCartEndpoint, cartItems, {
+    private validateCartRequest(cartItems: CartItem[]): Observable<ValidatedCartResponse> {
+        return this.http.post<CartItem[] | { cart?: CartItem[]; order_id?: unknown }>(this.validateCartEndpoint, cartItems, {
             withCredentials: true
         }).pipe(
-            map((items) => Array.isArray(items) ? items : [])
+            map((response) => {
+                if (Array.isArray(response)) {
+                    return {
+                        cart: response,
+                        orderId: null
+                    };
+                }
+
+                return {
+                    cart: Array.isArray(response?.cart) ? response.cart : [],
+                    orderId: typeof response?.order_id === 'string' || typeof response?.order_id === 'number'
+                        ? String(response.order_id)
+                        : null
+                };
+            })
         );
     }
 

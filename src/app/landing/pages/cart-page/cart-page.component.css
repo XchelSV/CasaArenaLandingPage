@@ -123,6 +123,14 @@
     margin-top: 1rem;
     border-color: #28231D;
     color: #28231D;
+    transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease;
+}
+
+.cart-summary__button:hover,
+.cart-summary__button:focus-visible {
+    background-color: #000;
+    border-color: #000;
+    color: #fff;
 }
 
 .cart-summary__button[disabled] {

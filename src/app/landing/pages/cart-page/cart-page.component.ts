@@ -66,7 +66,7 @@ export class CartPageComponent {
         this.checkoutErrorMessage = '';
 
         try {
-            const validatedItems = await firstValueFrom(
+            const validatedCart = await firstValueFrom(
                 this.cartValidationService.validateCart(cartItems).pipe(
                     finalize(() => {
                         this.isContinuingToCheckout = false;
@@ -74,7 +74,12 @@ export class CartPageComponent {
                 )
             );
 
-            this.cartService.replaceCart(validatedItems);
+            this.cartService.replaceCart(validatedCart.cart);
+
+            if (validatedCart.orderId) {
+                this.cartService.setOrderId(validatedCart.orderId);
+            }
+
             await this.router.navigate(['/landing/checkout']);
         } catch {
             this.checkoutErrorMessage = 'No pudimos validar tu carrito por ahora. Inténtalo de nuevo más tarde.';

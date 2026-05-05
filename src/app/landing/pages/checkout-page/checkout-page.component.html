@@ -79,7 +79,7 @@
 
                                 <div class="col-md-6">
                                     <label class="form-label" for="state">Estado</label>
-                                    <select id="state" class="form-select rounded-0" formControlName="state">
+                                    <select id="state" class="form-select rounded-0" formControlName="state" (change)="onStateChange()">
                                         <option value="">Selecciona un estado</option>
                                         @for (state of mexicoStates; track state) {
                                             <option [value]="state">{{ state }}</option>
@@ -91,6 +91,12 @@
                                     <label class="form-label" for="city">Ciudad</label>
                                     <input id="city" type="text" class="form-control rounded-0" formControlName="city" placeholder="Ciudad">
                                 </div>
+
+                                @if (shipmentErrorMessage) {
+                                    <div class="col-12 checkout-shipment-actions">
+                                        <p class="checkout-shipment-actions__error">{{ shipmentErrorMessage }}</p>
+                                    </div>
+                                }
                             </form>
                         </div>
 
@@ -114,8 +120,18 @@
                             <strong>{{ cartCount$ | async }}</strong>
                         </div>
                         <div class="checkout-summary__row">
-                            <span>Total</span>
+                            <span>Subtotal</span>
                             <strong>$ {{ (cartSubtotal$ | async) ?? 0 | number : '1.2-2' }}</strong>
+                        </div>
+                        @if (shipmentCost !== null) {
+                            <div class="checkout-summary__row">
+                                <span>Envío</span>
+                                <strong>$ {{ shipmentCost | number : '1.2-2' }}</strong>
+                            </div>
+                        }
+                        <div class="checkout-summary__row">
+                            <span>Total</span>
+                            <strong>$ {{ (((cartSubtotal$ | async) ?? 0) + (shipmentCost ?? 0)) | number : '1.2-2' }}</strong>
                         </div>
                     </aside>
                 </div>
