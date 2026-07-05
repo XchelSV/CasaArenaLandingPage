@@ -94,7 +94,6 @@
 
 .checkout-item__title,
 .checkout-item__presentation,
-.checkout-payment-placeholder p,
 .checkout-empty h2,
 .checkout-empty p,
 .checkout-panel__heading h2,
@@ -119,10 +118,86 @@
     margin-top: 0.85rem;
 }
 
-.checkout-payment-placeholder {
+.checkout-payment-card {
+    display: grid;
+    gap: 0.9rem;
     padding: 1.25rem;
-    background: linear-gradient(135deg, #f6ede1, #fffaf4);
-    border: 1px dashed rgba(40, 35, 29, 0.18);
+    background: rgba(255, 252, 247, 0.94);
+    border: 1px solid rgba(40, 35, 29, 0.08);
+}
+
+.checkout-payment-card__lead {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.35;
+    color: #48413a;
+}
+
+.checkout-payment-card__lead strong,
+.checkout-payment-card__secure-label,
+.checkout-payment-card__hint,
+.checkout-payment-card__error {
+    margin: 0;
+    color: #48413a;
+}
+
+.checkout-payment-card__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    border: 0;
+    border-radius: 0.9rem;
+    padding: 0.82rem 1.35rem;
+    font-weight: 700;
+    color: #fff;
+    background: #1293ce;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.checkout-payment-card__button:not(:disabled) {
+    box-shadow: 0 14px 24px rgba(18, 147, 206, 0.22);
+}
+
+.checkout-payment-card__button:not(:disabled):hover {
+    transform: translateY(-1px);
+}
+
+.checkout-payment-card__button:disabled {
+    cursor: not-allowed;
+    opacity: 0.65;
+}
+
+.checkout-payment-card__button-icon {
+    width: 2.55rem;
+    height: auto;
+    display: block;
+    flex: 0 0 auto;
+}
+
+.checkout-payment-card__button-label {
+    font-size: 0.98rem;
+}
+
+.checkout-payment-card__secure-label {
+    text-align: center;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #7a736b;
+}
+
+.checkout-payment-card__hint,
+.checkout-payment-card__error {
+    text-align: center;
+    font-size: 0.95rem;
+}
+
+.checkout-payment-card__hint {
+    color: #6d645b;
+}
+
+.checkout-payment-card__error {
+    color: #8b2e2e;
 }
 
 .form-label {

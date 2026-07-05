@@ -105,8 +105,40 @@
                                 <h2>Datos de pago</h2>
                             </div>
 
-                            <div class="checkout-payment-placeholder">
-                                <p>Este espacio quedará preparado para la integración de pago.</p>
+                            <div class="checkout-payment-card">
+                                <div class="checkout-payment-card__content">
+                                    <p class="checkout-payment-card__lead">
+                                        Para comenzar el proceso de pago haz clic en el botón
+                                        <strong>Pagar con Mercado Pago</strong> y sigue los pasos.
+                                    </p>
+                                </div>
+
+                                <button
+                                    type="button"
+                                    class="checkout-payment-card__button"
+                                    [disabled]="shipmentCost === null || isCreatingPaymentPreference"
+                                    (click)="redirectToMercadoPago()">
+                                    <img
+                                        src="assets/mercado-pago-icon.png"
+                                        alt=""
+                                        aria-hidden="true"
+                                        class="checkout-payment-card__button-icon">
+                                    <span class="checkout-payment-card__button-label">
+                                        {{ isCreatingPaymentPreference ? 'Redirigiendo...' : 'Pagar con Mercado Pago' }}
+                                    </span>
+                                </button>
+
+                                <p class="checkout-payment-card__secure-label">Paga de forma segura</p>
+
+                                @if (shipmentCost === null) {
+                                    <p class="checkout-payment-card__hint">
+                                        Calcula el costo de envío para habilitar el pago.
+                                    </p>
+                                }
+
+                                @if (paymentErrorMessage) {
+                                    <p class="checkout-payment-card__error">{{ paymentErrorMessage }}</p>
+                                }
                             </div>
                         </div>
                     </section>

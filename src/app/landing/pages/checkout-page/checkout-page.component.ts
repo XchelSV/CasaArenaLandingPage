@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { MEXICO_STATES } from 'src/app/shared/constants/mexico-states';
 import { CartItem } from 'src/app/shared/interfaces/cart-item.interface';
 import { CartService } from 'src/app/shared/services/cart.service';
+import { PaymentPreferenceService } from 'src/app/shared/services/payment-preference.service';
 import { ShipmentCalculationService } from 'src/app/shared/services/shipment-calculation.service';
 
 @Component({
@@ -20,8 +21,10 @@ export class CheckoutPageComponent {
     readonly cdnUrl = environment.CDN_URL;
     readonly mexicoStates = MEXICO_STATES;
     isCalculatingShipment = false;
+    isCreatingPaymentPreference = false;
     shipmentCost: number | null = null;
     shipmentErrorMessage = '';
+    paymentErrorMessage = '';
 
     readonly checkoutForm = this.formBuilder.group({
         fullName: ['', [Validators.required]],
@@ -36,6 +39,7 @@ export class CheckoutPageComponent {
     constructor(
         private readonly cartService: CartService,
         private readonly formBuilder: FormBuilder,
+        private readonly paymentPreferenceService: PaymentPreferenceService,
         private readonly shipmentCalculationService: ShipmentCalculationService
     ) {}
 
@@ -47,6 +51,7 @@ export class CheckoutPageComponent {
     resetShipmentCalculation(): void {
         this.shipmentCost = null;
         this.shipmentErrorMessage = '';
+        this.paymentErrorMessage = '';
     }
 
     async onStateChange(): Promise<void> {
@@ -98,6 +103,45 @@ export class CheckoutPageComponent {
         } catch {
             this.shipmentCost = null;
             this.shipmentErrorMessage = 'No pudimos calcular el envío por ahora. Inténtalo de nuevo en unos segundos.';
+        }
+    }
+
+    async redirectToMercadoPago(): Promise<void> {
+        if (this.isCreatingPaymentPreference || this.shipmentCost === null) {
+            return;
+        }
+
+        const orderId = this.cartService.getOrderId();
+
+        if (!orderId) {
+            this.paymentErrorMessage = 'No pudimos preparar el pago. Regresa al carrito e inténtalo de nuevo.';
+            return;
+        }
+
+        this.paymentErrorMessage = '';
+        this.isCreatingPaymentPreference = true;
+
+        try {
+            const paymentPreference = await firstValueFrom(
+                this.paymentPreferenceService.createPreference(orderId).pipe(
+                    finalize(() => {
+                        this.isCreatingPaymentPreference = false;
+                    })
+                )
+            );
+
+            const redirectUrl = environment.production
+                ? paymentPreference.initPoint
+                : paymentPreference.sandboxInitPoint;
+
+            if (!redirectUrl) {
+                this.paymentErrorMessage = 'No pudimos obtener el enlace de pago. Inténtalo de nuevo en unos segundos.';
+                return;
+            }
+
+            window.location.assign(redirectUrl);
+        } catch {
+            this.paymentErrorMessage = 'No pudimos iniciar el pago por ahora. Inténtalo de nuevo en unos segundos.';
         }
     }
 }
