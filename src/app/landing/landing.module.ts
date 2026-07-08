@@ -13,6 +13,7 @@ import { EsmaltesPageComponent } from './pages/esmaltes-page/esmaltes-page.compo
 import { EngobesPageComponent } from './pages/engobes-page/engobes-page.component';
 import { CartPageComponent } from './pages/cart-page/cart-page.component';
 import { CheckoutPageComponent } from './pages/checkout-page/checkout-page.component';
+import { PaymentStatusPageComponent } from './pages/payment-status-page/payment-status-page.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { CheckoutPageComponent } from './pages/checkout-page/checkout-page.compo
     EsmaltesPageComponent,
     EngobesPageComponent,
     CartPageComponent,
-    CheckoutPageComponent
+    CheckoutPageComponent,
+    PaymentStatusPageComponent
   ],
   imports: [
     CommonModule,

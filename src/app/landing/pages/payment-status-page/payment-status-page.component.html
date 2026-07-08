@@ -1,0 +1,159 @@
+<section class="payment-status-page">
+    <div class="container-fluid payment-status-page__container">
+        <div class="row justify-content-center">
+            <div class="col-12 payment-status-page__header text-center">
+                <p class="payment-status-page__eyebrow">Estado de tu pedido</p>
+                <h1>{{ pageHeading }}</h1>
+            </div>
+        </div>
+
+        @if (isLoading) {
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <section class="payment-status-card payment-status-card--loading" aria-live="polite" aria-busy="true">
+                        <div class="payment-status-loader" aria-hidden="true">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <span class="visually-hidden">Cargando resumen del pedido</span>
+                    </section>
+                </div>
+            </div>
+        } @else if (loadErrorMessage) {
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <section class="payment-status-card text-center">
+                        <h2>No pudimos cargar el resumen del pedido</h2>
+                        <p>{{ loadErrorMessage }}</p>
+                        <div class="payment-status-card__actions">
+                            <button type="button" class="btn btn-outline-secondary rounded-0" routerLink="/landing/contact">
+                                Ir a contacto
+                            </button>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        } @else if (preferenceStatus) {
+            <div class="row g-4 align-items-start">
+                <div class="col-xl-7">
+                    <section class="payment-status-card">
+                        <div class="payment-status-banner" [ngClass]="bannerClass">
+                            <p class="payment-status-banner__eyebrow">{{ bannerEyebrow }}</p>
+                            <h2>{{ bannerTitle }}</h2>
+                            <p>{{ bannerDescription }}</p>
+                            <span class="payment-status-banner__meta">
+                                Estado de referencia: {{ preferenceStatus.status ?? 'Sin estado' }}
+                            </span>
+                        </div>
+
+                        <div class="payment-status-card__section">
+                            <div class="payment-status-card__heading">
+                                <h2>Productos de tu pedido</h2>
+                                <span>{{ itemCount }} artículo(s)</span>
+                            </div>
+
+                            <div class="payment-status-items">
+                                @for (item of items; track item.cartKey) {
+                                    <article class="payment-status-item">
+                                        <div class="payment-status-item__image-shell">
+                                            <img
+                                                [src]="cdnUrl + item.imagePath"
+                                                [alt]="item.title"
+                                                class="payment-status-item__image"
+                                                loading="lazy"
+                                                decoding="async">
+                                        </div>
+
+                                        <div class="payment-status-item__content">
+                                            <div>
+                                                <p class="payment-status-item__category">{{ item.category }}</p>
+                                                <h3 class="payment-status-item__title">{{ item.title }}</h3>
+                                                <p class="payment-status-item__presentation">{{ item.presentationLabel }}</p>
+                                            </div>
+
+                                            <div class="payment-status-item__meta">
+                                                <span>{{ item.quantity }} x $ {{ item.price | number : '1.2-2' }}</span>
+                                                <strong>$ {{ item.price * item.quantity | number : '1.2-2' }}</strong>
+                                            </div>
+                                        </div>
+                                    </article>
+                                }
+                            </div>
+                        </div>
+
+                        @if (isFailureOutcome) {
+                            <div class="payment-status-card__section">
+                                <div class="payment-status-card__contact">
+                                    <h2>¿Necesitas ayuda?</h2>
+                                    <p>Si tienes cualquier duda, visita nuestra página de contacto y con gusto te ayudamos.</p>
+                                    <button type="button" class="btn btn-outline-secondary rounded-0" routerLink="/landing/contact">
+                                        Ir a contacto
+                                    </button>
+                                </div>
+                            </div>
+                        }
+                    </section>
+                </div>
+
+                <div class="col-xl-5">
+                    <aside class="payment-status-summary">
+                        <h2 class="payment-status-summary__title">Resumen de compra</h2>
+                        <div class="payment-status-summary__row">
+                            <span>Productos</span>
+                            <strong>{{ itemCount }}</strong>
+                        </div>
+                        <div class="payment-status-summary__row">
+                            <span>Subtotal</span>
+                            <strong>$ {{ subtotal | number : '1.2-2' }}</strong>
+                        </div>
+                        <div class="payment-status-summary__row">
+                            <span>Envío</span>
+                            <strong>$ {{ shipmentCost | number : '1.2-2' }}</strong>
+                        </div>
+                        <div class="payment-status-summary__row">
+                            <span>Total</span>
+                            <strong>$ {{ total | number : '1.2-2' }}</strong>
+                        </div>
+
+                        @if (preferenceStatus.shipmentDetails; as shipmentDetails) {
+                            <div class="payment-status-summary__section">
+                                <h3>Datos de envío</h3>
+                                <dl class="payment-status-summary__details">
+                                    <div>
+                                        <dt>Nombre</dt>
+                                        <dd>{{ shipmentDetails.name }}</dd>
+                                    </div>
+                                    <div>
+                                        <dt>Teléfono</dt>
+                                        <dd>{{ shipmentDetails.phone }}</dd>
+                                    </div>
+                                    <div>
+                                        <dt>Dirección</dt>
+                                        <dd>{{ shipmentDetails.address }}</dd>
+                                    </div>
+                                    <div>
+                                        <dt>Colonia</dt>
+                                        <dd>{{ shipmentDetails.neighborhood }}</dd>
+                                    </div>
+                                    <div>
+                                        <dt>Código postal</dt>
+                                        <dd>{{ shipmentDetails.cp }}</dd>
+                                    </div>
+                                    <div>
+                                        <dt>Estado</dt>
+                                        <dd>{{ shipmentDetails.state }}</dd>
+                                    </div>
+                                    <div>
+                                        <dt>Ciudad</dt>
+                                        <dd>{{ shipmentDetails.city }}</dd>
+                                    </div>
+                                </dl>
+                            </div>
+                        }
+                    </aside>
+                </div>
+            </div>
+        }
+    </div>
+</section>

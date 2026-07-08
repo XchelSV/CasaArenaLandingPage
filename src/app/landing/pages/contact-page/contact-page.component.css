@@ -6,33 +6,37 @@
 .contact-page {
     flex: 1;
     display: flex;
+    width: 100%;
+    min-height: clamp(680px, calc(100dvh - 180px), 920px);
 }
 
 .contact-page__container {
     flex: 1;
     display: flex;
+    width: 100%;
 }
 
 .contact-page__row {
     flex: 1;
     min-height: 100%;
+    width: 100%;
     align-items: stretch;
 }
 
 .title {
-    font-weight :100;
+    font-weight: 100;
     letter-spacing: .2rem;
 }
 
 .sub-title {
     font-size: 20px;
-    font-weight :100;
+    font-weight: 100;
     letter-spacing: .2rem;
 }
 
 .text {
     font-size: 18px;
-    font-weight :400;
+    font-weight: 400;
 }
 
 .left-data {
@@ -44,23 +48,25 @@
     width: 100%;
 }
 
-.btn-outline-secondary, .btn-outline-secondary:active, .btn-outline-secondary:visited {
+.btn-outline-secondary,
+.btn-outline-secondary:active,
+.btn-outline-secondary:visited {
     border-color: #28231D;
     background-color: #28231D;
     border-width: 2px;
 }
 
-.btn-outline-secondary:hover{
+.btn-outline-secondary:hover {
     background-color: #36322d;
     fill: #fff;
 }
 
 textarea:focus,
 input[type="text"]:focus,
-.uneditable-input:focus {   
-  border-color: #28231D;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #EEEEEE;
-  outline: 0 none;
+.uneditable-input:focus {
+    border-color: #28231D;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #EEEEEE;
+    outline: 0 none;
 }
 
 .gradient-image {

@@ -116,7 +116,7 @@
                                 <button
                                     type="button"
                                     class="checkout-payment-card__button"
-                                    [disabled]="shipmentCost === null || isCreatingPaymentPreference"
+                                    [disabled]="!canCreatePaymentPreference || isCreatingPaymentPreference"
                                     (click)="redirectToMercadoPago()">
                                     <img
                                         src="assets/mercado-pago-icon.png"
@@ -133,6 +133,10 @@
                                 @if (shipmentCost === null) {
                                     <p class="checkout-payment-card__hint">
                                         Calcula el costo de envío para habilitar el pago.
+                                    </p>
+                                } @else if (!checkoutForm.valid) {
+                                    <p class="checkout-payment-card__hint">
+                                        Completa todos los datos de envío para habilitar el pago.
                                     </p>
                                 }
 

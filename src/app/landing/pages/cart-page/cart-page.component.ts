@@ -47,10 +47,6 @@ export class CartPageComponent {
         this.cartService.removeFromCart(cartKey);
     }
 
-    clearCart(): void {
-        this.cartService.clearCart();
-    }
-
     async continueToCheckout(): Promise<void> {
         if (this.isContinuingToCheckout) {
             return;

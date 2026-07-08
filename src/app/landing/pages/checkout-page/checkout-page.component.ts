@@ -4,6 +4,7 @@ import { Observable, finalize, firstValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { MEXICO_STATES } from 'src/app/shared/constants/mexico-states';
 import { CartItem } from 'src/app/shared/interfaces/cart-item.interface';
+import { ShipmentDetails } from 'src/app/shared/interfaces/shipment-details.interface';
 import { CartService } from 'src/app/shared/services/cart.service';
 import { PaymentPreferenceService } from 'src/app/shared/services/payment-preference.service';
 import { ShipmentCalculationService } from 'src/app/shared/services/shipment-calculation.service';
@@ -46,6 +47,10 @@ export class CheckoutPageComponent {
     get canCalculateShipment(): boolean {
         const state = this.checkoutForm.get('state')?.value;
         return typeof state === 'string' && !!state.trim();
+    }
+
+    get canCreatePaymentPreference(): boolean {
+        return this.shipmentCost !== null && this.buildShipmentDetails() !== null;
     }
 
     resetShipmentCalculation(): void {
@@ -107,14 +112,20 @@ export class CheckoutPageComponent {
     }
 
     async redirectToMercadoPago(): Promise<void> {
-        if (this.isCreatingPaymentPreference || this.shipmentCost === null) {
+        if (this.isCreatingPaymentPreference || !this.canCreatePaymentPreference) {
             return;
         }
 
         const orderId = this.cartService.getOrderId();
+        const shipmentDetails = this.buildShipmentDetails();
 
         if (!orderId) {
             this.paymentErrorMessage = 'No pudimos preparar el pago. Regresa al carrito e inténtalo de nuevo.';
+            return;
+        }
+
+        if (!shipmentDetails) {
+            this.paymentErrorMessage = 'Completa los datos de envío antes de continuar con el pago.';
             return;
         }
 
@@ -123,7 +134,7 @@ export class CheckoutPageComponent {
 
         try {
             const paymentPreference = await firstValueFrom(
-                this.paymentPreferenceService.createPreference(orderId).pipe(
+                this.paymentPreferenceService.createPreference(orderId, shipmentDetails).pipe(
                     finalize(() => {
                         this.isCreatingPaymentPreference = false;
                     })
@@ -143,5 +154,37 @@ export class CheckoutPageComponent {
         } catch {
             this.paymentErrorMessage = 'No pudimos iniciar el pago por ahora. Inténtalo de nuevo en unos segundos.';
         }
+    }
+
+    private buildShipmentDetails(): ShipmentDetails | null {
+        if (this.checkoutForm.invalid) {
+            return null;
+        }
+
+        const fullName = this.normalizeControlValue(this.checkoutForm.get('fullName')?.value);
+        const phoneNumber = this.normalizeControlValue(this.checkoutForm.get('phoneNumber')?.value);
+        const address = this.normalizeControlValue(this.checkoutForm.get('address')?.value);
+        const neighborhood = this.normalizeControlValue(this.checkoutForm.get('neighborhood')?.value);
+        const postalCode = this.normalizeControlValue(this.checkoutForm.get('postalCode')?.value);
+        const state = this.normalizeControlValue(this.checkoutForm.get('state')?.value);
+        const city = this.normalizeControlValue(this.checkoutForm.get('city')?.value);
+
+        if (!fullName || !phoneNumber || !address || !neighborhood || !postalCode || !state || !city) {
+            return null;
+        }
+
+        return {
+            name: fullName,
+            phone: phoneNumber,
+            address,
+            neighborhood,
+            cp: postalCode,
+            state,
+            city
+        };
+    }
+
+    private normalizeControlValue(value: unknown): string {
+        return typeof value === 'string' ? value.trim() : '';
     }
 }

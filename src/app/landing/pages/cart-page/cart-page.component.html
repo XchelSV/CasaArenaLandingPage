@@ -59,13 +59,20 @@
                         }
                         <button
                             type="button"
-                            class="btn btn-outline-secondary rounded-0 cart-summary__button"
+                            class="btn rounded-0 cart-summary__button"
                             (click)="continueToCheckout()"
-                            [disabled]="isContinuingToCheckout">
-                            {{ isContinuingToCheckout ? 'Validando carrito...' : 'Continuar al pago' }}
-                        </button>
-                        <button type="button" class="btn btn-link cart-summary__clear" (click)="clearCart()">
-                            Vaciar carrito
+                            [disabled]="isContinuingToCheckout"
+                            [attr.aria-busy]="isContinuingToCheckout">
+                            @if (isContinuingToCheckout) {
+                                <span class="cart-summary__button-loader" aria-hidden="true">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </span>
+                                <span class="visually-hidden">Validando carrito</span>
+                            } @else {
+                                <span>Continuar al pago</span>
+                            }
                         </button>
                     </aside>
                 </div>

@@ -95,6 +95,10 @@ export class CartService {
         return window.localStorage.getItem(this.orderIdStorageKey);
     }
 
+    getCartItems(): CartItem[] {
+        return [...this.cartItemsSubject.getValue()];
+    }
+
     private updateCart(items: CartItem[]): void {
         this.cartItemsSubject.next(items);
 
