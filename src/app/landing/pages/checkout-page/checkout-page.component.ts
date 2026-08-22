@@ -29,6 +29,7 @@ export class CheckoutPageComponent {
 
     readonly checkoutForm = this.formBuilder.group({
         fullName: ['', [Validators.required]],
+        email: ['', [Validators.required, Validators.email]],
         address: ['', [Validators.required]],
         phoneNumber: ['', [Validators.required]],
         postalCode: ['', [Validators.required, Validators.pattern(/^\d{5}$/)]],
@@ -162,6 +163,7 @@ export class CheckoutPageComponent {
         }
 
         const fullName = this.normalizeControlValue(this.checkoutForm.get('fullName')?.value);
+        const email = this.normalizeControlValue(this.checkoutForm.get('email')?.value);
         const phoneNumber = this.normalizeControlValue(this.checkoutForm.get('phoneNumber')?.value);
         const address = this.normalizeControlValue(this.checkoutForm.get('address')?.value);
         const neighborhood = this.normalizeControlValue(this.checkoutForm.get('neighborhood')?.value);
@@ -169,12 +171,13 @@ export class CheckoutPageComponent {
         const state = this.normalizeControlValue(this.checkoutForm.get('state')?.value);
         const city = this.normalizeControlValue(this.checkoutForm.get('city')?.value);
 
-        if (!fullName || !phoneNumber || !address || !neighborhood || !postalCode || !state || !city) {
+        if (!fullName || !email || !phoneNumber || !address || !neighborhood || !postalCode || !state || !city) {
             return null;
         }
 
         return {
             name: fullName,
+            email,
             phone: phoneNumber,
             address,
             neighborhood,

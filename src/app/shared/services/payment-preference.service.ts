@@ -168,6 +168,7 @@ export class PaymentPreferenceService {
 
         const details = shipmentDetails as Partial<ShipmentDetails>;
         const name = this.normalizeString(details.name);
+        const email = this.normalizeString(details.email);
         const phone = this.normalizeString(details.phone);
         const address = this.normalizeString(details.address);
         const neighborhood = this.normalizeString(details.neighborhood);
@@ -175,12 +176,13 @@ export class PaymentPreferenceService {
         const state = this.normalizeString(details.state);
         const city = this.normalizeString(details.city);
 
-        if (!name || !phone || !address || !neighborhood || !cp || !state || !city) {
+        if (!name || !email || !phone || !address || !neighborhood || !cp || !state || !city) {
             return null;
         }
 
         return {
             name,
+            email,
             phone,
             address,
             neighborhood,

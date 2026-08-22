@@ -52,9 +52,24 @@
                             </div>
 
                             <form class="row g-3" [formGroup]="checkoutForm">
-                                <div class="col-md-6">
+                                <div class="col-12">
                                     <label class="form-label" for="fullName">Nombre completo</label>
                                     <input id="fullName" type="text" class="form-control rounded-0" formControlName="fullName" placeholder="Nombre completo">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label" for="email">Correo electrónico</label>
+                                    <input
+                                        id="email"
+                                        type="email"
+                                        class="form-control rounded-0"
+                                        formControlName="email"
+                                        placeholder="correo@ejemplo.com"
+                                        autocomplete="email"
+                                        [attr.aria-invalid]="checkoutForm.controls.email.invalid && checkoutForm.controls.email.touched">
+                                    @if (checkoutForm.controls.email.invalid && checkoutForm.controls.email.touched) {
+                                        <p class="checkout-shipment-actions__error">Ingresa un correo electrónico válido.</p>
+                                    }
                                 </div>
 
                                 <div class="col-md-6">
