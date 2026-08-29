@@ -1,0 +1,54 @@
+:host {
+  display: block;
+}
+
+.login-page {
+  align-items: center;
+  background: #f7f4ef;
+  display: flex;
+  justify-content: center;
+  min-height: 100dvh;
+  padding: 24px;
+}
+
+.login-card {
+  background: #fff;
+  box-shadow: 0 12px 36px rgba(40, 35, 29, 0.12);
+  max-width: 420px;
+  padding: 48px;
+  text-align: center;
+  width: 100%;
+}
+
+.eyebrow {
+  color: #766c61;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  margin: 0 0 12px;
+}
+
+h1 {
+  color: #28231d;
+  font-weight: 400;
+  margin: 0 0 16px;
+}
+
+button {
+  background: #28231d;
+  border: 0;
+  color: #fff;
+  cursor: pointer;
+  margin-top: 16px;
+  padding: 12px 24px;
+  width: 100%;
+}
+
+button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.error {
+  color: #a12622;
+  margin: 16px 0 0;
+}

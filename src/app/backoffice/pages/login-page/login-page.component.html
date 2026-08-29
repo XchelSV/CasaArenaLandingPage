@@ -1,0 +1,13 @@
+<main class="login-page">
+  <section class="login-card" aria-labelledby="login-title">
+    <p class="eyebrow">CASA ARENA</p>
+    <h1 id="login-title">Backoffice</h1>
+    <p>Inicia sesión para consultar y gestionar pedidos.</p>
+
+    <button type="button" (click)="signIn()" [disabled]="isLoading">
+      {{ isLoading ? 'Redirigiendo…' : 'Iniciar sesión' }}
+    </button>
+
+    <p *ngIf="errorMessage" class="error" role="alert">{{ errorMessage }}</p>
+  </section>
+</main>

@@ -1,0 +1,152 @@
+<main class="orders-page">
+  <header>
+    <div>
+      <p>CASA ARENA</p>
+      <h1>Pedidos</h1>
+    </div>
+    <button type="button" (click)="signOut()">Cerrar sesión</button>
+  </header>
+
+  <section class="orders-card" aria-labelledby="orders-table-title">
+    <div class="orders-card__header">
+      <div>
+        <h2 id="orders-table-title">Pedidos</h2>
+        <p>Mostrando hasta {{ pageSize }} pedidos por página.</p>
+      </div>
+
+      <label class="orders-filter" for="order-status">
+        Estado
+        <select id="order-status" [(ngModel)]="selectedStatus" (ngModelChange)="onStatusChange()" [disabled]="isLoading || isLoadingMore">
+          <option *ngFor="let status of statuses" [value]="status">{{ status }}</option>
+        </select>
+      </label>
+    </div>
+
+    <p *ngIf="errorMessage" class="orders-message orders-message--error" role="alert">{{ errorMessage }}</p>
+    <p *ngIf="isLoading" class="orders-message" aria-live="polite">Cargando pedidos…</p>
+
+    <div *ngIf="!isLoading && orders.length > 0" class="orders-table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th *ngFor="let column of columnNames" scope="col">{{ getColumnLabel(column) }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let order of orders"
+            class="orders-table__row"
+            tabindex="0"
+            (click)="openOrder(order)"
+            (keydown.enter)="openOrder(order)"
+            (keydown.space)="$event.preventDefault(); openOrder(order)"
+          >
+            <td *ngFor="let column of columnNames">{{ formatCellValue(getColumnValue(order, column), column) }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p *ngIf="!isLoading && !errorMessage && orders.length === 0" class="orders-message">No hay pedidos con estado {{ selectedStatus }}.</p>
+
+    <div *ngIf="nextToken" class="orders-card__footer">
+      <button type="button" (click)="loadMore()" [disabled]="isLoadingMore">
+        {{ isLoadingMore ? 'Cargando…' : 'Cargar más pedidos' }}
+      </button>
+    </div>
+  </section>
+</main>
+
+<div
+  *ngIf="selectedOrder as order"
+  class="order-modal-backdrop"
+  [class.order-modal-backdrop--closing]="isOrderModalClosing"
+  (click)="closeOrder()"
+>
+  <section
+    class="order-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="order-modal-title"
+    (click)="$event.stopPropagation()"
+  >
+    <header class="order-modal__header">
+      <div>
+        <p>DETALLE DEL PEDIDO</p>
+        <h2 id="order-modal-title">Orden {{ getOrderReference(order, 'order_id', 'id') }}</h2>
+      </div>
+      <button type="button" class="order-modal__close" aria-label="Cerrar detalle" (click)="closeOrder()">×</button>
+    </header>
+
+    <div class="order-modal__content">
+      <section class="order-modal__section">
+        <h3>Referencias de pago</h3>
+        <dl class="order-details-grid">
+          <div>
+            <dt>ID de la orden</dt>
+            <dd>{{ getOrderReference(order, 'order_id', 'id') }}</dd>
+          </div>
+          <div>
+            <dt>ID de preference</dt>
+            <dd>{{ getOrderReference(order, 'preference_id', 'preferenceId') }}</dd>
+          </div>
+          <div>
+            <dt>ID de pago Mercado Pago</dt>
+            <dd>{{ getOrderReference(order, 'payment_id', 'paymentId', 'mercado_pago_payment_id') }}</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="order-modal__section">
+        <h3>Productos</h3>
+        <div *ngIf="getOrderProducts(order).length > 0; else noProducts" class="order-products">
+          <article *ngFor="let product of getOrderProducts(order)" class="order-product">
+            <div
+              *ngIf="getProductImage(product) as imageUrl; else noImage"
+              class="order-product__image-shell"
+              [class.order-product__image-shell--loaded]="isProductImageLoaded(imageUrl)"
+            >
+              <img
+                [src]="imageUrl"
+                [alt]="getProductName(product)"
+                [class.order-product__image--loaded]="isProductImageLoaded(imageUrl)"
+                (load)="onProductImageLoad(imageUrl)"
+                (error)="onProductImageLoad(imageUrl)"
+                loading="lazy"
+                decoding="async"
+              >
+            </div>
+            <ng-template #noImage>
+              <div class="order-product__image-shell order-product__image-shell--loaded">
+                <span aria-hidden="true">Sin imagen</span>
+              </div>
+            </ng-template>
+            <div class="order-product__content">
+              <h4>{{ getProductName(product) }}</h4>
+              <p *ngIf="getProductPresentation(product)">{{ getProductPresentation(product) }}</p>
+              <span>Cantidad: {{ getProductQuantity(product) }} · Precio: {{ formatAmount(getProductPrice(product)) }}</span>
+            </div>
+            <strong>{{ formatAmount(getProductPrice(product) * getProductQuantity(product)) }}</strong>
+          </article>
+        </div>
+        <ng-template #noProducts><p class="order-modal__empty">Esta orden no contiene productos.</p></ng-template>
+      </section>
+
+      <section class="order-modal__section">
+        <h3>Datos de envío</h3>
+        <dl class="order-details-grid">
+          <div *ngFor="let field of shipmentFields">
+            <dt>{{ field.label }}</dt>
+            <dd>{{ getShipmentFieldValue(order, field.key) }}</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="order-modal__summary" aria-label="Resumen de importes">
+        <div><span>Subtotal</span><strong>{{ formatAmount(getOrderSubtotal(order)) }}</strong></div>
+        <div><span>Envío</span><strong>{{ formatAmount(getShipmentCost(order)) }}</strong></div>
+        <div class="order-modal__total"><span>Total</span><strong>{{ formatAmount(getOrderTotal(order)) }}</strong></div>
+      </section>
+    </div>
+  </section>
+</div>

@@ -20,7 +20,11 @@ export const environment = {
    mapsApiKey: "${process.env.MAPS_API_KEY}",
    WHATSAPP_SOURCE_MOBILE: "${process.env.WHATSAPP_SOURCE_MOBILE}",
    CDN_URL: "${process.env.CDN_URL}",
-   API_GATEWAY: "${process.env.API_GATEWAY}"
+   API_GATEWAY: "${process.env.API_GATEWAY}",
+   COGNITO_USER_POOL_ID: "${process.env.COGNITO_USER_POOL_ID}",
+   COGNITO_APP_CLIENT_ID: "${process.env.COGNITO_APP_CLIENT_ID}",
+   COGNITO_DOMAIN: "${process.env.COGNITO_DOMAIN}",
+   COGNITO_REDIRECT_SIGN_IN: "${process.env.COGNITO_REDIRECT_SIGN_IN}"
 };
 `;
 

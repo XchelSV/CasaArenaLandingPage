@@ -17,3 +17,74 @@ app-root {
     min-height: 100%;
     display: block;
 }
+
+.order-product__image-shell {
+    background:
+        linear-gradient(110deg, rgba(245, 245, 245, 0.9) 8%, #fff 18%, rgba(245, 245, 245, 0.9) 33%);
+    background-size: 200% 100%;
+    animation: order-image-shimmer 1.2s linear infinite;
+}
+
+.order-product__image-shell--loaded {
+    animation: none;
+    background: #f7f4ef;
+}
+
+.order-product__image-shell img {
+    opacity: 0;
+    transition: opacity 220ms ease;
+}
+
+.order-product__image-shell img.order-product__image--loaded {
+    opacity: 1;
+}
+
+.order-modal-backdrop {
+    animation: order-modal-backdrop-in 180ms ease-out both;
+}
+
+.order-modal {
+    animation: order-modal-in 180ms ease-out both;
+}
+
+.order-modal-backdrop--closing {
+    animation: order-modal-backdrop-out 180ms ease-in both;
+}
+
+.order-modal-backdrop--closing .order-modal {
+    animation: order-modal-out 180ms ease-in both;
+}
+
+@keyframes order-image-shimmer {
+    to { background-position-x: -200%; }
+}
+
+@keyframes order-modal-backdrop-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes order-modal-backdrop-out {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes order-modal-in {
+    from { opacity: 0; transform: translateY(12px) scale(0.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes order-modal-out {
+    from { opacity: 1; transform: translateY(0) scale(1); }
+    to { opacity: 0; transform: translateY(8px) scale(0.985); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .order-product__image-shell,
+    .order-modal-backdrop,
+    .order-modal,
+    .order-modal-backdrop--closing,
+    .order-modal-backdrop--closing .order-modal {
+        animation: none;
+    }
+}
