@@ -142,6 +142,60 @@
         </dl>
       </section>
 
+      <section class="order-modal__section">
+        <div class="shipment-guide__heading">
+          <h3>Guía de paquetería</h3>
+          <button
+            *ngIf="hasShipmentGuide(order) && !isShipmentFormVisible"
+            type="button"
+            class="shipment-guide__edit"
+            aria-label="Editar guía de paquetería"
+            (click)="openShipmentEditor(order)"
+          >
+            <span aria-hidden="true">✎</span>
+          </button>
+        </div>
+
+        <div *ngIf="hasShipmentGuide(order) && !isShipmentFormVisible" class="shipment-guide__details">
+          <span>{{ getShipmentCode(order) ?? 'Sin guía' }}</span>
+          <span>{{ getDeliveryCompany(order) ?? 'Sin paquetería' }}</span>
+        </div>
+
+        <form *ngIf="isShipmentFormVisible" class="shipment-guide__form" (ngSubmit)="saveShipmentGuide(order)">
+          <p class="shipment-guide__notice" role="note">
+            Al guardar esta guía, el cliente recibirá un correo con la información de envío.
+          </p>
+          <label>
+            Número de guía
+            <input
+              type="text"
+              name="shipment-code"
+              [(ngModel)]="shipmentCode"
+              [disabled]="isSavingShipment"
+              autocomplete="off"
+              required
+            >
+          </label>
+          <label>
+            Paquetería
+            <select name="delivery-company" [(ngModel)]="deliveryCompany" [disabled]="isSavingShipment">
+              <option *ngFor="let company of deliveryCompanies" [value]="company">{{ company }}</option>
+            </select>
+          </label>
+          <div class="shipment-guide__actions">
+            <button type="submit" [disabled]="isSavingShipment">
+              {{ isSavingShipment ? 'Guardando…' : 'Guardar guía' }}
+            </button>
+            <button *ngIf="hasShipmentGuide(order)" type="button" [disabled]="isSavingShipment" (click)="cancelShipmentEditor(order)">
+              Cancelar
+            </button>
+          </div>
+        </form>
+
+        <p *ngIf="shipmentFormError" class="shipment-guide__message shipment-guide__message--error" role="alert">{{ shipmentFormError }}</p>
+        <p *ngIf="shipmentFormSuccess" class="shipment-guide__message shipment-guide__message--success">{{ shipmentFormSuccess }}</p>
+      </section>
+
       <section class="order-modal__summary" aria-label="Resumen de importes">
         <div><span>Subtotal</span><strong>{{ formatAmount(getOrderSubtotal(order)) }}</strong></div>
         <div><span>Envío</span><strong>{{ formatAmount(getShipmentCost(order)) }}</strong></div>

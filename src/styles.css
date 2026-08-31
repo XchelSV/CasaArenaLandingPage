@@ -88,3 +88,80 @@ app-root {
         animation: none;
     }
 }
+
+.shipment-guide__heading,
+.shipment-guide__details,
+.shipment-guide__actions {
+    align-items: center;
+    display: flex;
+    gap: 12px;
+    justify-content: space-between;
+}
+
+.shipment-guide__heading h3 {
+    margin-bottom: 0;
+}
+
+.shipment-guide__edit {
+    border: 0;
+    font-size: 1.25rem;
+    line-height: 1;
+    padding: 4px 8px;
+}
+
+.shipment-guide__details {
+    background: #f7f4ef;
+    color: #28231d;
+    margin-top: 18px;
+    padding: 12px;
+}
+
+.shipment-guide__form {
+    display: grid;
+    gap: 14px;
+    grid-template-columns: minmax(0, 1fr) minmax(160px, 0.5fr);
+    margin-top: 18px;
+}
+
+.shipment-guide__notice {
+    background: #fff4de;
+    color: #614619;
+    font-size: 0.9rem;
+    grid-column: 1 / -1;
+    margin: 0;
+    padding: 10px 12px;
+}
+
+.shipment-guide__form label {
+    color: #766c61;
+    display: grid;
+    font-size: 0.72rem;
+    gap: 6px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.shipment-guide__form input,
+.shipment-guide__form select {
+    background: #fff;
+    border: 1px solid #bdb5ab;
+    color: #28231d;
+    font: inherit;
+    padding: 10px 12px;
+}
+
+.shipment-guide__actions {
+    grid-column: 1 / -1;
+    justify-content: flex-start;
+}
+
+.shipment-guide__message {
+    margin: 12px 0 0;
+}
+
+.shipment-guide__message--error { color: #a12622; }
+.shipment-guide__message--success { color: #27613a; }
+
+@media (max-width: 640px) {
+    .shipment-guide__form { grid-template-columns: 1fr; }
+}

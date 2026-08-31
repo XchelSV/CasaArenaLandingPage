@@ -1,7 +1,13 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { finalize } from 'rxjs';
-import { ORDER_STATUSES, BackofficeOrder, OrderStatus } from '../../interfaces/orders.interface';
+import {
+  DELIVERY_COMPANIES,
+  BackofficeOrder,
+  DeliveryCompany,
+  ORDER_STATUSES,
+  OrderStatus,
+} from '../../interfaces/orders.interface';
 import { CognitoAuthService } from '../../services/cognito-auth.service';
 import { OrdersService } from '../../services/orders.service';
 import { environment } from 'src/environments/environment';
@@ -21,6 +27,7 @@ interface ShipmentField {
 })
 export class OrdersPageComponent implements OnInit {
   readonly statuses = ORDER_STATUSES;
+  readonly deliveryCompanies = DELIVERY_COMPANIES;
   readonly pageSize = 25;
   readonly cdnUrl = environment.CDN_URL;
   readonly shipmentFields: ShipmentField[] = [
@@ -39,6 +46,8 @@ export class OrdersPageComponent implements OnInit {
     'products',
     'client',
     'total',
+    'shipment_code',
+    'delivery_company',
   ]);
 
   orders: BackofficeOrder[] = [];
@@ -49,6 +58,12 @@ export class OrdersPageComponent implements OnInit {
   errorMessage = '';
   selectedOrder: BackofficeOrder | null = null;
   isOrderModalClosing = false;
+  shipmentCode = '';
+  deliveryCompany: DeliveryCompany = 'DHL';
+  isShipmentFormVisible = false;
+  isSavingShipment = false;
+  shipmentFormError = '';
+  shipmentFormSuccess = '';
   private loadedProductImages = new Set<string>();
   private modalCloseTimer?: number;
 
@@ -105,6 +120,7 @@ export class OrdersPageComponent implements OnInit {
     this.loadedProductImages = new Set();
     this.isOrderModalClosing = false;
     this.selectedOrder = order;
+    this.resetShipmentForm(order);
   }
 
   get columnNames(): string[] {
@@ -274,6 +290,79 @@ export class OrdersPageComponent implements OnInit {
     });
   }
 
+  hasShipmentGuide(order: BackofficeOrder): boolean {
+    return this.getShipmentCode(order) !== null || this.getDeliveryCompany(order) !== null;
+  }
+
+  getShipmentCode(order: BackofficeOrder): string | null {
+    return this.getStringValue(order['shipment_code']);
+  }
+
+  getDeliveryCompany(order: BackofficeOrder): string | null {
+    return this.getStringValue(order['delivery_company']);
+  }
+
+  openShipmentEditor(order: BackofficeOrder): void {
+    this.resetShipmentForm(order);
+    this.isShipmentFormVisible = true;
+  }
+
+  cancelShipmentEditor(order: BackofficeOrder): void {
+    this.resetShipmentForm(order);
+  }
+
+  async saveShipmentGuide(order: BackofficeOrder): Promise<void> {
+    const shipmentCode = this.shipmentCode.trim();
+    const orderId = this.getOrderReference(order, 'order_id', 'id');
+
+    this.shipmentFormError = '';
+    this.shipmentFormSuccess = '';
+
+    if (!shipmentCode) {
+      this.shipmentFormError = 'Ingresa el número de guía.';
+      return;
+    }
+
+    if (orderId === '—') {
+      this.shipmentFormError = 'No fue posible identificar la orden.';
+      return;
+    }
+
+    const session = await this.auth.getSession();
+    if (!session) {
+      this.shipmentFormError = 'La sesión expiró. Inicia sesión de nuevo.';
+      return;
+    }
+
+    this.isSavingShipment = true;
+    this.ordersService.saveShipmentCode(session.accessToken, {
+      order_id: orderId,
+      shipment_code: shipmentCode,
+      delivery_company: this.deliveryCompany,
+    }).pipe(
+      finalize(() => {
+        this.isSavingShipment = false;
+      }),
+    ).subscribe({
+      next: () => {
+        const updatedOrder = {
+          ...order,
+          shipment_code: shipmentCode,
+          delivery_company: this.deliveryCompany,
+          status: 'SENT',
+        };
+
+        this.orders = this.orders.map((currentOrder) => currentOrder === order ? updatedOrder : currentOrder);
+        this.selectedOrder = updatedOrder;
+        this.isShipmentFormVisible = false;
+        this.shipmentFormSuccess = 'Guía de paquetería actualizada.';
+      },
+      error: () => {
+        this.shipmentFormError = 'No fue posible guardar la guía. Intenta nuevamente.';
+      },
+    });
+  }
+
   private async loadOrders(nextToken?: string): Promise<void> {
     const isFirstPage = !nextToken;
     this.errorMessage = '';
@@ -317,6 +406,34 @@ export class OrdersPageComponent implements OnInit {
 
     const name = (shipmentDetails as Record<string, unknown>)['name'];
     return typeof name === 'string' && name.trim().length > 0 ? name : '—';
+  }
+
+  private resetShipmentForm(order: BackofficeOrder): void {
+    this.shipmentCode = this.getShipmentCode(order) ?? '';
+    const deliveryCompany = this.getDeliveryCompany(order);
+    this.deliveryCompany = this.isDeliveryCompany(deliveryCompany)
+      ? deliveryCompany
+      : 'DHL';
+    this.isShipmentFormVisible = !this.hasShipmentGuide(order);
+    this.isSavingShipment = false;
+    this.shipmentFormError = '';
+    this.shipmentFormSuccess = '';
+  }
+
+  private isDeliveryCompany(value: string | null): value is DeliveryCompany {
+    return DELIVERY_COMPANIES.includes(value as DeliveryCompany);
+  }
+
+  private getStringValue(value: unknown): string | null {
+    if (typeof value === 'string' && value.trim().length > 0) {
+      return value.trim();
+    }
+
+    if (typeof value === 'number') {
+      return String(value);
+    }
+
+    return null;
   }
 
   private getProductsQuantity(order: BackofficeOrder): number {

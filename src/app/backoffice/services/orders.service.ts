@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { BackofficeOrder, OrdersResponse, OrderStatus } from '../interfaces/orders.interface';
+import { BackofficeOrder, DeliveryCompany, OrdersResponse, OrderStatus } from '../interfaces/orders.interface';
 import { environment } from 'src/environments/environment';
 
 interface OrdersApiResponse {
@@ -9,9 +9,16 @@ interface OrdersApiResponse {
   next_token?: unknown;
 }
 
+interface ShipmentCodePayload {
+  order_id: string;
+  shipment_code: string;
+  delivery_company: DeliveryCompany;
+}
+
 @Injectable({ providedIn: 'root' })
 export class OrdersService {
   private readonly ordersEndpoint = `${environment.API_GATEWAY}/orders`;
+  private readonly shipmentCodeEndpoint = `${environment.API_GATEWAY}/shipment/code`;
 
   constructor(private readonly http: HttpClient) {}
 
@@ -39,6 +46,12 @@ export class OrdersService {
           : null,
       })),
     );
+  }
+
+  saveShipmentCode(accessToken: string, payload: ShipmentCodePayload): Observable<unknown> {
+    return this.http.post(this.shipmentCodeEndpoint, payload, {
+      headers: new HttpHeaders({ Authorization: `Bearer ${accessToken}` }),
+    });
   }
 
   private normalizeOrders(value: unknown): BackofficeOrder[] {
