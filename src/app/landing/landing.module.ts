@@ -11,6 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TalleresPageComponent } from './pages/talleres-page/talleres-page.component';
 import { EsmaltesPageComponent } from './pages/esmaltes-page/esmaltes-page.component';
 import { EngobesPageComponent } from './pages/engobes-page/engobes-page.component';
+import { ArcillasPageComponent } from './pages/arcillas-page/arcillas-page.component';
 import { CartPageComponent } from './pages/cart-page/cart-page.component';
 import { CheckoutPageComponent } from './pages/checkout-page/checkout-page.component';
 import { PaymentStatusPageComponent } from './pages/payment-status-page/payment-status-page.component';
@@ -24,6 +25,7 @@ import { PaymentStatusPageComponent } from './pages/payment-status-page/payment-
     TalleresPageComponent,
     EsmaltesPageComponent,
     EngobesPageComponent,
+    ArcillasPageComponent,
     CartPageComponent,
     CheckoutPageComponent,
     PaymentStatusPageComponent
