@@ -10,6 +10,10 @@
   font-weight: 100;
 }
 
+.card-text {
+  white-space: pre-line;
+}
+
 .card-body {
   display: flex;
   flex-direction: column;
