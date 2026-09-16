@@ -32,6 +32,7 @@
 }
 
 .cart-item__image-shell {
+    align-self: center;
     background-color: #f8f4ef;
     padding: 0.75rem;
 }
