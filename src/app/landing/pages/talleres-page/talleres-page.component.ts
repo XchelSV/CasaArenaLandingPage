@@ -27,7 +27,7 @@ interface TallerOption {
   standalone: false
 })
 export class TalleresPageComponent {
-  readonly heroImageUrl = `${environment.CDN_URL}/images/torno3.png?d=1920x1080`;
+  readonly heroImageUrl = `${environment.CDN_URL}/images/FullSizeRender.jpg?d=1920x1080`;
 
   readonly talleres: readonly TallerOption[] = [
     {

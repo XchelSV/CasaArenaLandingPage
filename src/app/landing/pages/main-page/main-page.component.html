@@ -1,111 +1,112 @@
-<div
-    class="container-fluid text-center hero-image"
-    [class.hero-image--loaded]="heroImageLoaded">
-    <div
-        class="hero-image__media"
-        [class.hero-image__media--loaded]="heroImageLoaded"
-        [ngStyle]="heroImageLoaded ? {backgroundImage: 'url(' + heroImageUrl + ')'} : null"
-        aria-hidden="true"></div>
-    <div class="hero-image__overlay" aria-hidden="true"></div>
-    <div class="hero-image__content">
-    <div class="row justify-content-center">
-        <div class="col-5 col-md-4 col-lg-4 mt-4">
-            <div class="hero-logo-frame">
-                <img
-                    [src]="logoImageUrl"
-                    alt="Casa Arena"
-                    class="img-fluid hero-logo-image"
-                    [class.hero-logo-image--loaded]="logoLoaded"
-                    fetchpriority="high"
-                    decoding="async"
-                    (load)="markImageAsLoaded('logo')">
+<main>
+    <section
+        class="container-fluid text-center hero-image"
+        [class.hero-image--loaded]="heroImageLoaded"
+        aria-labelledby="home-title">
+        <div
+            class="hero-image__media"
+            [class.hero-image__media--loaded]="heroImageLoaded"
+            [ngStyle]="heroImageLoaded ? {backgroundImage: 'url(' + heroImageUrl + ')'} : null"
+            aria-hidden="true"></div>
+        <div class="hero-image__overlay" aria-hidden="true"></div>
+
+        <div class="container hero-image__content">
+            <div class="row justify-content-center">
+                <div class="col-5 col-md-3 col-lg-2">
+                    <div class="hero-logo-frame">
+                        <img
+                            [src]="logoImageUrl"
+                            alt="Casa Arena"
+                            class="img-fluid hero-logo-image"
+                            [class.hero-logo-image--loaded]="logoLoaded"
+                            fetchpriority="high"
+                            decoding="async"
+                            (load)="markImageAsLoaded('logo')">
+                    </div>
+                </div>
+            </div>
+
+            <p class="hero-kicker">TALLER DE CERÁMICA EN PUEBLA</p>
+            <h1 id="home-title">Cerámica artesanal personalizada</h1>
+            <p class="hero-intro">Clases y experiencias presenciales, piezas únicas y materiales para acompañar cada parte de tu proceso.</p>
+
+            <div class="hero-actions">
+                <a class="home-button home-button--light" routerLink="/landing/talleres">Conoce los talleres</a>
+                <a class="home-button home-button--outline-light" routerLink="/landing/catalogo/esmaltes">Explora materiales</a>
             </div>
         </div>
-    </div>
-    <div class="row justify-content-center">
-        <div class="col banner-title">
-            <h1>CASA ARENA</h1>
-        </div>
-    </div>
-    <div class="row justify-content-center">
-        <div class="col">
-            <p>Nos dedicamos a la fabricación de piezas únicas y la enseñanza de la tierra</p>
-        </div>
-    </div>
-    <div class="row justify-content-center">
-        <div class="col mb-4">
-            <p style="font-weight: 100;">Ubicados en la Ciudad de Puebla</p>
-        </div>
-    </div>
-    </div>
-</div>
+    </section>
 
-<div class="container-fluid text-center" style="margin: 100px 0;">
-    <div class="row justify-content-center">
-        <div class="col-8 secondary-banner">
-            <h1>Lorem ipsum dolor sit. Voluptatibus non, deleniti minima itaque beatae ad? Esse?</h1>
-        </div>
-    </div>
-    <div class="row justify-content-center mt-3">
-        <div class="col-5">
-            <button type="button" class="btn btn-outline-secondary rounded-0 banner-button" routerLink="/landing/catalogo/esmaltes">NUESTRO CATÁLOGO</button>
-        </div>
-    </div>
-</div>
+    <section class="home-intro text-center" aria-labelledby="materials-title">
+        <div class="container">
+            <p class="section-label">MATERIALES CERÁMICOS</p>
+            <h2 id="materials-title">Todo para llevar tus ideas del barro al horno</h2>
+            <p class="section-copy">Encuentra esmaltes, engobes, pastas y arcillas para distintos procesos y temperaturas. Consulta las características de cada producto y elige el material que mejor se adapte a tu pieza.</p>
 
-<div class="container-fluid" style="margin-bottom: 80px;">
-    <div class="row margin-paragraph">
-        <div class="col-md-6 col-xs-12 px-md-5 mb-5 col-sm-6">
-            <div class="image-frame image-frame--portrait" [class.image-frame--loaded]="firstSectionImageLoaded">
-                <img
-                    [src]="firstSectionImageUrl"
-                    alt="Piezas de cerámica Casa Arena"
-                    class="img-fluid content-image"
-                    [class.content-image--loaded]="firstSectionImageLoaded"
-                    decoding="async"
-                    loading="lazy"
-                    (load)="markImageAsLoaded('first')">
+            <nav class="catalog-links" aria-label="Categorías del catálogo">
+                <a class="home-button home-button--dark" routerLink="/landing/catalogo/esmaltes">Esmaltes</a>
+                <a class="home-button home-button--dark" routerLink="/landing/catalogo/engobes">Engobes</a>
+                <a class="home-button home-button--dark" routerLink="/landing/catalogo/arcillas">Arcillas y pastas</a>
+            </nav>
+        </div>
+    </section>
+
+    <section class="container home-stories" aria-label="Piezas y experiencias de Casa Arena">
+        <article class="row align-items-center home-story">
+            <div class="col-md-6 px-md-5 mb-4 mb-md-0">
+                <div class="image-frame image-frame--portrait" [class.image-frame--loaded]="firstSectionImageLoaded">
+                    <img
+                        [src]="firstSectionImageUrl"
+                        alt="Piezas de cerámica elaboradas en Casa Arena"
+                        class="img-fluid content-image"
+                        [class.content-image--loaded]="firstSectionImageLoaded"
+                        decoding="async"
+                        loading="lazy"
+                        (load)="markImageAsLoaded('first')">
+                </div>
             </div>
-        </div>
-        <div class="col-md-6 col-xs-12 px-md-5 col-sm-6">
-            <h2>Lorem ipsum dolor sit. Voluptatibus non, deleniti minima itaque beatae ad? Esse?</h2>
-            <p class="p-home-us mt-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis dolorem quod iure similique iste! At eveniet quas blanditiis voluptatum, ea dolorum deleniti recusandae autem quisquam molestiae ipsum. Nesciunt, saepe perferendis!</p>
-            <p class="p-home-us">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem asperiores sequi iusto consequuntur assumenda eveniet officia quis eos vel, consequatur voluptas soluta illo ratione totam aliquam magni. Velit, sapiente natus!</p>
-        </div>
-    </div>
-    <div class="row margin-paragraph">
-        <div class="col-md-6 col-xs-12 px-md-5 mb-5 col-sm-6">
-            <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi cum quas voluptatum.</h2>
-            <p class="p-home-us mt-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet repudiandae, neque illo dolorem cupiditate veniam tempora, sunt dicta corrupti facere dolorum, perferendis explicabo? Veniam a eveniet nisi obcaecati? In, natus.</p>
-            <p class="p-home-us">Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi natus expedita, incidunt praesentium quod qui sit illum minima voluptatem, suscipit dolorum magni aliquid maxime iure iusto saepe impedit voluptatibus debitis!</p>
-        </div>
-        <div class="col-md-6 col-xs-12 px-md-5 col-sm-6">
-            <div class="image-frame image-frame--portrait" [class.image-frame--loaded]="secondSectionImageLoaded">
-                <img
-                    [src]="secondSectionImageUrl"
-                    alt="Taller de cerámica Casa Arena"
-                    class="img-fluid content-image"
-                    [class.content-image--loaded]="secondSectionImageLoaded"
-                    decoding="async"
-                    loading="lazy"
-                    (load)="markImageAsLoaded('second')">
-            </div>
-        </div>
-    </div>
-</div>
 
-<div class="container-fluid">
-    <div class="row mt-5">
-        <div class="col-12 px-0">
-            <iframe
-                width="100%"
-                height="400"
-                style="border:0"
-                loading="lazy"
-                allowfullscreen
-                referrerpolicy="no-referrer-when-downgrade"
-                [src]='mapsUrl'>
-            </iframe>
-        </div>
+            <div class="col-md-6 px-md-5 home-story__content">
+                <p class="section-label">PIEZAS</p>
+                <h2>Piezas con carácter, hechas para ti</h2>
+                <p>Descubre piezas disponibles y proyectos elaborados por encargo. Si buscas una forma, acabado o detalle especial, cuéntanos tu idea para crear una pieza personalizada.</p>
+                <p>Cada propuesta nace del diálogo entre el material, el oficio y la manera en que quieres usarla.</p>
+                <a class="home-button home-button--dark" routerLink="/landing/contact">Cuéntanos tu idea</a>
+            </div>
+        </article>
+
+        <article class="row align-items-center home-story home-story--reverse">
+            <div class="col-md-6 px-md-5 home-story__content order-2 order-md-1">
+                <p class="section-label">CLASES Y EXPERIENCIAS</p>
+                <h2>Aprende cerámica con las manos</h2>
+                <p>Acércate al barro con cursos de construcción manual, sesiones para decorar piezas y experiencias privadas para compartir en grupo.</p>
+                <p>Elige una clase individual o un proceso de varias sesiones; nosotros te acompañamos con los materiales y las quemas indicadas en cada experiencia.</p>
+                <a class="home-button home-button--dark" routerLink="/landing/talleres">Ver clases y talleres</a>
+            </div>
+
+            <div class="col-md-6 px-md-5 mb-4 mb-md-0 order-1 order-md-2">
+                <div class="image-frame image-frame--portrait" [class.image-frame--loaded]="secondSectionImageLoaded">
+                    <img
+                        [src]="secondSectionImageUrl"
+                        alt="Clase presencial en el taller de cerámica Casa Arena"
+                        class="img-fluid content-image"
+                        [class.content-image--loaded]="secondSectionImageLoaded"
+                        decoding="async"
+                        loading="lazy"
+                        (load)="markImageAsLoaded('second')">
+                </div>
+            </div>
+        </article>
+    </section>
+
+    <div class="container-fluid px-0">
+        <iframe
+            class="home-map"
+            title="Ubicación del taller Casa Arena en Puebla"
+            loading="lazy"
+            allowfullscreen
+            referrerpolicy="no-referrer-when-downgrade"
+            [src]="mapsUrl">
+        </iframe>
     </div>
-</div>
+</main>
