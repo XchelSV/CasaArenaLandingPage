@@ -26,3 +26,17 @@ export interface OrdersResponse {
   orders: BackofficeOrder[];
   nextToken: string | null;
 }
+
+export interface OrderEmail {
+  order_id: string;
+  created_at: string;
+  message_id: string;
+  type: string;
+  subject: string;
+  status: string | null;
+}
+
+export interface OrderEmailsResponse {
+  emails: OrderEmail[];
+  count: number;
+}

@@ -293,6 +293,79 @@ tbody tr:last-child td {
   white-space: nowrap;
 }
 
+.email-history__loader {
+  align-items: center;
+  color: #766c61;
+  display: flex;
+  gap: 10px;
+  min-height: 72px;
+}
+
+.email-history__spinner {
+  animation: email-history-spin 0.8s linear infinite;
+  border: 2px solid #ded7cf;
+  border-radius: 50%;
+  border-top-color: #766c61;
+  height: 20px;
+  width: 20px;
+}
+
+.email-history__message {
+  color: #766c61;
+  margin: 0;
+}
+
+.email-history__message--error {
+  color: #a12622;
+}
+
+.email-history__table-wrapper {
+  border: 1px solid #e1dbd3;
+  overflow-x: auto;
+}
+
+.email-history__table td {
+  max-width: 300px;
+}
+
+.email-history__table td:nth-child(3) {
+  white-space: normal;
+}
+
+.email-status {
+  border-radius: 999px;
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 9px;
+}
+
+.email-status--success {
+  background: #e3f3e8;
+  color: #24653b;
+}
+
+.email-status--warning {
+  background: #fff1bf;
+  color: #765b00;
+}
+
+.email-status--error {
+  background: #f9e3e1;
+  color: #a12622;
+}
+
+.email-status--neutral {
+  background: #ece8e3;
+  color: #4e4943;
+}
+
+@keyframes email-history-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .order-modal__summary {
   display: grid;
   gap: 12px;

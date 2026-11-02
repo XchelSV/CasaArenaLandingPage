@@ -5,6 +5,7 @@ import {
   DELIVERY_COMPANIES,
   BackofficeOrder,
   DeliveryCompany,
+  OrderEmail,
   ORDER_STATUSES,
   OrderStatus,
 } from '../../interfaces/orders.interface';
@@ -64,8 +65,12 @@ export class OrdersPageComponent implements OnInit {
   isSavingShipment = false;
   shipmentFormError = '';
   shipmentFormSuccess = '';
+  orderEmails: OrderEmail[] = [];
+  isLoadingOrderEmails = false;
+  orderEmailsError = '';
   private loadedProductImages = new Set<string>();
   private modalCloseTimer?: number;
+  private orderEmailsRequestId = 0;
 
   constructor(
     private readonly auth: CognitoAuthService,
@@ -103,11 +108,15 @@ export class OrdersPageComponent implements OnInit {
       return;
     }
 
+    this.orderEmailsRequestId += 1;
+    this.isLoadingOrderEmails = false;
     this.isOrderModalClosing = true;
     this.modalCloseTimer = window.setTimeout(() => {
       this.selectedOrder = null;
       this.isOrderModalClosing = false;
       this.loadedProductImages = new Set();
+      this.orderEmails = [];
+      this.orderEmailsError = '';
     }, 180);
   }
 
@@ -121,6 +130,32 @@ export class OrdersPageComponent implements OnInit {
     this.isOrderModalClosing = false;
     this.selectedOrder = order;
     this.resetShipmentForm(order);
+    void this.loadOrderEmails(order);
+  }
+
+  getOrderEmailStatusClass(status: string): string {
+    if (status === 'Delivery') {
+      return 'email-status--success';
+    }
+
+    if (status === 'Send' || status === 'DeliveryDelay') {
+      return 'email-status--warning';
+    }
+
+    if (
+      status === 'Bounce'
+      || status === 'Complaint'
+      || status === 'Reject'
+      || status === 'Rendering Failure'
+    ) {
+      return 'email-status--error';
+    }
+
+    return 'email-status--neutral';
+  }
+
+  formatOrderEmailDate(value: string): string {
+    return this.formatCreatedAt(value);
   }
 
   get columnNames(): string[] {
@@ -397,6 +432,51 @@ export class OrdersPageComponent implements OnInit {
     });
   }
 
+  private async loadOrderEmails(order: BackofficeOrder): Promise<void> {
+    const requestId = ++this.orderEmailsRequestId;
+    const orderId = this.getOrderReference(order, 'order_id', 'id');
+
+    this.orderEmails = [];
+    this.orderEmailsError = '';
+    this.isLoadingOrderEmails = true;
+
+    if (orderId === '—') {
+      this.orderEmailsError = 'No fue posible identificar la orden.';
+      this.isLoadingOrderEmails = false;
+      return;
+    }
+
+    const session = await this.auth.getSession();
+    if (requestId !== this.orderEmailsRequestId) {
+      return;
+    }
+
+    if (!session) {
+      this.orderEmailsError = 'La sesión expiró. Inicia sesión de nuevo.';
+      this.isLoadingOrderEmails = false;
+      return;
+    }
+
+    this.ordersService.getOrderEmails(session.accessToken, orderId).pipe(
+      finalize(() => {
+        if (requestId === this.orderEmailsRequestId) {
+          this.isLoadingOrderEmails = false;
+        }
+      }),
+    ).subscribe({
+      next: (response) => {
+        if (requestId === this.orderEmailsRequestId) {
+          this.orderEmails = response.emails;
+        }
+      },
+      error: () => {
+        if (requestId === this.orderEmailsRequestId) {
+          this.orderEmailsError = 'No fue posible obtener el historial de emails. Intenta nuevamente.';
+        }
+      },
+    });
+  }
+
   private getCustomerName(order: BackofficeOrder): string {
     const shipmentDetails = order['shipment_details'];
 
@@ -461,11 +541,14 @@ export class OrdersPageComponent implements OnInit {
 
   private formatCreatedAt(value: unknown): string {
     const timestamp = this.toNumber(value);
+    const normalizedValue = typeof value === 'string'
+      ? value.replace(/(\.\d{3})\d+(?=Z$)/, '$1')
+      : '';
     const date = Number.isFinite(timestamp)
       ? new Date(timestamp * 1000)
       : value instanceof Date
         ? value
-        : new Date(typeof value === 'string' ? value : '');
+        : new Date(normalizedValue);
 
     if (Number.isNaN(date.getTime())) {
       return String(value);

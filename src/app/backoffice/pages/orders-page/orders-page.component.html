@@ -196,6 +196,52 @@
         <p *ngIf="shipmentFormSuccess" class="shipment-guide__message shipment-guide__message--success">{{ shipmentFormSuccess }}</p>
       </section>
 
+      <section class="order-modal__section email-history" aria-labelledby="email-history-title">
+        <h3 id="email-history-title">Historial de emails</h3>
+
+        <div *ngIf="isLoadingOrderEmails" class="email-history__loader" role="status" aria-live="polite">
+          <span class="email-history__spinner" aria-hidden="true"></span>
+          <span>Cargando historial de emails…</span>
+        </div>
+
+        <p *ngIf="!isLoadingOrderEmails && orderEmailsError" class="email-history__message email-history__message--error" role="alert">
+          {{ orderEmailsError }}
+        </p>
+
+        <div *ngIf="!isLoadingOrderEmails && !orderEmailsError && orderEmails.length > 0" class="email-history__table-wrapper">
+          <table class="email-history__table">
+            <thead>
+              <tr>
+                <th scope="col">Fecha</th>
+                <th scope="col">Tipo</th>
+                <th scope="col">Asunto</th>
+                <th scope="col">Estado</th>
+                <th scope="col">ID de mensaje</th>
+                <th scope="col">ID de orden</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let email of orderEmails">
+                <td>{{ formatOrderEmailDate(email.created_at) }}</td>
+                <td>{{ email.type }}</td>
+                <td>{{ email.subject }}</td>
+                <td>
+                  <span *ngIf="email.status as status" class="email-status" [ngClass]="getOrderEmailStatusClass(status)">
+                    {{ status }}
+                  </span>
+                </td>
+                <td>{{ email.message_id }}</td>
+                <td>{{ email.order_id }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p *ngIf="!isLoadingOrderEmails && !orderEmailsError && orderEmails.length === 0" class="email-history__message">
+          Esta orden no tiene emails registrados.
+        </p>
+      </section>
+
       <section class="order-modal__summary" aria-label="Resumen de importes">
         <div><span>Subtotal</span><strong>{{ formatAmount(getOrderSubtotal(order)) }}</strong></div>
         <div><span>Envío</span><strong>{{ formatAmount(getShipmentCost(order)) }}</strong></div>
